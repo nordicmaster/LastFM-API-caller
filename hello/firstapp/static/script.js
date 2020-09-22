@@ -7,6 +7,10 @@
         //console.log(xresInfo);
         listeners = xresInfo.artist.stats.listeners;
         totalscrobbles = xresInfo.artist.stats.playcount;
+        document.getElementById("artists").innerHTML += artist + " has " +
+											listeners + " listeners and  " +
+											totalscrobbles + " scrobbles<br>";
         console.log(listeners);
+        console.log("0-0-0-0");
         console.log(totalscrobbles);
     }
