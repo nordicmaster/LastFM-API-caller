@@ -11,7 +11,7 @@ def index(request):
 
 
 def about(request):
-    return HttpResponse("<h2>О сайте</h2>")
+    return HttpResponse("<h2>About</h2><p>This is simple LastFm API caller. Check it to compare various artists rating.</p>")
 
 
 def contact(request):
