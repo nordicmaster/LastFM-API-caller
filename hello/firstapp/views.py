@@ -15,4 +15,5 @@ def about(request):
 
 
 def contact(request):
-    return HttpResponse("<h2>Контакты</h2>")
+    res = str(request.scheme) + " " + str(request.method) + " " + str(request.path)
+    return HttpResponse("<h2>Контакты</h2><p>" + res + "</p>")
