@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 
 def index(request):
-    data = {"message": "Welcome to Python"}
+    data = {"message": "Table Of Content:"}
     return render(request, "index.html", context=data)
 
 

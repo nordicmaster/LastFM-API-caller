@@ -5,7 +5,9 @@
         var xresInfo = await responseInfo.json();
         listeners = xresInfo.artist.stats.listeners;
         totalscrobbles = xresInfo.artist.stats.playcount;
-        document.getElementById("artists").innerHTML += artist + " has " +
-											listeners + " listeners and  " +
-											totalscrobbles + " scrobbles<br>";
+        document.getElementById("artists").innerHTML += "<span class=\"fixwidth\">"+
+                                            artist + "</span> has <span class=\"fixwidth2\">" +
+											listeners + "</span> listeners and <span class=\"fixwidth3\">" +
+											totalscrobbles + "</span> scrobbles. Ratio=" +
+											totalscrobbles/listeners + "<br>";
     }
