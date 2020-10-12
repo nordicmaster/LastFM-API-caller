@@ -6,9 +6,14 @@ from django.shortcuts import render
 
 
 def index(request):
-    data = {"message": "Table Of Content:"}    
-    userform = ArtistForm()
-    return render(request, "index.html", {"form": userform})
+    if request.method == "POST":
+        name = request.POST.get("name")
+        # age = request.POST.get("age")     # получение значения поля age
+        return HttpResponse("<h2>Hello, {0}</h2>".format(name))
+    else:
+        data = {"message": "Table Of Content:"}    
+        userform = ArtistForm()
+        return render(request, "index.html", {"form": userform})
 
 
 def about(request):
