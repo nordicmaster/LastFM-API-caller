@@ -4,17 +4,19 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import ArtistForm
-
+from .apps import getLastFmInfo
 
 def index(request):
     if request.method == "POST":
         name = request.POST.get("name")
-        # age = request.POST.get("age")     # получение значения поля age
-        return HttpResponse("<h2>Hello, {0}</h2>".format(name))
+        # here add json response from lastik
+        res = getLastFmInfo(name)
+        userform = ArtistForm()
+        return render(request, "index.html", {"form": userform, "message": res})
     else:
         data = {"message": "Table Of Content:"}    
         userform = ArtistForm()
-        return render(request, "index.html", {"form": userform})
+        return render(request, "index.html", {"form": userform, "message": "Table Of Content:"})
 
 
 def about(request):
