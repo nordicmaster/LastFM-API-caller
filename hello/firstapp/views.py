@@ -6,8 +6,9 @@ from django.shortcuts import render
 
 
 def index(request):
-    data = {"message": "Table Of Content:"}
-    return render(request, "index.html", context=data)
+    data = {"message": "Table Of Content:"}    
+    userform = ArtistForm()
+    return render(request, "index.html", {"form": userform})
 
 
 def about(request):
