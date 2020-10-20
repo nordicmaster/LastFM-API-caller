@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import ArtistForm
 from .apps import getLastFmInfo
+from .apps import getLastFmInfo_similar
 
 def index(request):
     if request.method == "POST":
@@ -17,6 +18,19 @@ def index(request):
         data = {"message": "Table Of Content:"}    
         userform = ArtistForm()
         return render(request, "index.html", {"form": userform, "message": "Table Of Content:"})
+
+
+def similar(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        # here add json response from lastik
+        res = getLastFmInfo_similar(name)
+        userform = ArtistForm()
+        return render(request, "similar.html", {"form": userform, "message": res})
+    else:
+        data = {"message": "Table Of Content:"}
+        userform = ArtistForm()
+        return render(request, "similar.html", {"form": userform, "message": "Table Of Content:"})
 
 
 def about(request):

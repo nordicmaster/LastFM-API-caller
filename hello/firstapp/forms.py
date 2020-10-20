@@ -1,4 +1,4 @@
 from django import forms
  
 class ArtistForm(forms.Form):
-    name = forms.CharField()
+    name = forms.CharField(label="Artist")
