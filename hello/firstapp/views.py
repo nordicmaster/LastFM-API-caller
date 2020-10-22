@@ -10,7 +10,6 @@ from .apps import getLastFmInfo_similar
 def index(request):
     if request.method == "POST":
         name = request.POST.get("name")
-        # here add json response from lastik
         res = getLastFmInfo(name)
         userform = ArtistForm()
         return render(request, "index.html", {"form": userform, "message": res})
@@ -23,7 +22,6 @@ def index(request):
 def similar(request):
     if request.method == "POST":
         name = request.POST.get("name")
-        # here add json response from lastik
         res = getLastFmInfo_similar(name)
         userform = ArtistForm()
         return render(request, "similar.html", {"form": userform, "message": res})
