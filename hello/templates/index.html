@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="{% static "styles.css" %}" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
     <title>L-C</title>
 </head>
 <script src="{% static 'script.js' %}?version=2"></script>
@@ -14,10 +14,15 @@
         {{ form }}
         <input type="submit" value="Send" >
     </form>
+    <hr>
     <br>
-    {{message | safe}}
+    {% for o in artists %}
+        <span class="fixwidth"> {{ o.artist }} </span> has <span class="fixwidth2">
+        {{ o.listeners }} </span> listeners and <span class="fixwidth3">
+        {{ o.scrobbles }} </span> scrobbles. Ratio= {{ o.ratio }} <br>
+    {% endfor %}
     <br>
-
+<button onclick="clearBase()">Clear</button>
 <a href="similar">Similarity check</a>
 </body>
 </html>

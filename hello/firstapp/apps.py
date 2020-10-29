@@ -1,4 +1,6 @@
 from django.apps import AppConfig
+from .models import StatsArtist
+from datetime import date
 import requests
 
 
@@ -6,7 +8,6 @@ class FirstappConfig(AppConfig):
     name = 'firstapp'
 
 
-res = ''
 similar_res = ''
 
 
@@ -18,16 +19,16 @@ def getLastFmInfo(name):
              'format': 'json'}
     x = requests.get(url, myobj)
     xInfo = x.json()
-    global res
     if 'error' in xInfo:
-        res = res + xInfo["message"] + "<br>"
-        return res
+        return xInfo["message"] + "<br>"
     listeners = xInfo["artist"]["stats"]["listeners"]
     totalscrobbles = xInfo["artist"]["stats"]["playcount"]
-    res = res + "<span class=\"fixwidth\">" + name + "</span> has <span class=\"fixwidth2\">"
-    res = res + listeners + "</span> listeners and <span class=\"fixwidth3\">"
-    res = res + totalscrobbles + "</span> scrobbles. Ratio=" + str(float(totalscrobbles) / float(listeners)) + "<br>"
-    return res
+    new_artist = StatsArtist(last_seen=date.today(),
+                             ratio=float(totalscrobbles)/float(listeners),
+                             scrobbles=totalscrobbles,
+                             listeners=listeners,
+                             artist=name)
+    return new_artist
 
 
 def getLastFmInfo_similar(name):
@@ -51,3 +52,17 @@ def getLastFmInfo_similar(name):
         similar_res = similar_res + art["name"] + ", "
     similar_res = similar_res + "<br>"
     return similar_res
+
+
+def pushOrUpdate(myartist: StatsArtist):
+    print(StatsArtist.objects.filter(artist=myartist.artist))
+    if StatsArtist.objects.filter(artist=myartist.artist):
+        StatsArtist.objects.filter(artist=myartist.artist).update(listeners=myartist.listeners, scrobbles=myartist.scrobbles,
+                                                              ratio=myartist.ratio, last_seen=myartist.last_seen)
+    else:
+        myartist.save()
+    return
+
+
+def get_all_artists():
+    return StatsArtist.objects.all()

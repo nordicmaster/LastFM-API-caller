@@ -11,3 +11,8 @@
 											totalscrobbles + "</span> scrobbles. Ratio=" +
 											totalscrobbles/listeners + "<br>";
     }
+
+    function clearBase() {
+        //request to host
+
+    }

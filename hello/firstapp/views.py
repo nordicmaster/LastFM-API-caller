@@ -1,22 +1,21 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import ArtistForm
 from .apps import getLastFmInfo
 from .apps import getLastFmInfo_similar
+from .apps import pushOrUpdate
+from .apps import get_all_artists
+
 
 def index(request):
     if request.method == "POST":
         name = request.POST.get("name")
-        res = getLastFmInfo(name)
-        userform = ArtistForm()
-        return render(request, "index.html", {"form": userform, "message": res})
-    else:
-        data = {"message": "Table Of Content:"}    
-        userform = ArtistForm()
-        return render(request, "index.html", {"form": userform, "message": "Table Of Content:"})
+        artist = getLastFmInfo(name)
+        if isinstance(artist, str):
+            return HttpResponse(artist)
+        pushOrUpdate(artist)
+    userform = ArtistForm()
+    return render(request, "index.html", {"form": userform, "artists": get_all_artists()})
 
 
 def similar(request):
