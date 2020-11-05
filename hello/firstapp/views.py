@@ -1,10 +1,11 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import ArtistForm
 from .apps import getLastFmInfo
 from .apps import getLastFmInfo_similar
 from .apps import pushOrUpdate
 from .apps import get_all_artists
+from .apps import delete_all_artists
 
 
 def index(request):
@@ -37,3 +38,9 @@ def about(request):
 def contact(request):
     res = str(request.scheme) + " " + str(request.method) + " " + str(request.path)
     return HttpResponse("<h2>Контакты</h2><p>" + res + "</p>")
+
+
+def deleteAll(request):
+    delete_all_artists()
+    return redirect(index)
+

@@ -66,3 +66,8 @@ def pushOrUpdate(myartist: StatsArtist):
 
 def get_all_artists():
     return StatsArtist.objects.all()
+
+
+def delete_all_artists():
+    StatsArtist.objects.all().delete()
+    return

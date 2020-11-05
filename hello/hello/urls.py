@@ -23,4 +23,5 @@ urlpatterns = [
     path('about', views.about),
     path('contact', views.contact),
     path('similar', views.similar),
+    path('deleteAll', views.deleteAll)
 ]
