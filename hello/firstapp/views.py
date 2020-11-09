@@ -31,6 +31,10 @@ def similar(request):
         return render(request, "similar.html", {"form": userform, "message": "Table Of Content:"})
 
 
+def by_user(request):
+    if request.method == "POST":
+        
+
 def about(request):
     return HttpResponse("<h2>About</h2><p>This is simple LastFm API caller. Check it to compare various artists rating.</p>")
 
