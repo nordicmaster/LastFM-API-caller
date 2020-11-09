@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <title>L-C</title>
+</head>
+<script src="{% static 'script.js' %}?version=2"></script>
+<body>
+    <h1>Last API Caller (Statistics By User)</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Send" >
+    </form>
+    <hr>
+    <br>
+    {% for o in artists %}
+        You scrobbled {{ o.artist }} - {{ o.scrobbles }} times. Listeners: {{ o.listeners }}
+
+    {% endfor %}
+    <br>
+<button onclick="clearBase()">Clear</button>
+<a href="similar">Similarity check</a>
+</body>
+</html>
