@@ -8,20 +8,15 @@
 </head>
 <script src="{% static 'script.js' %}?version=2"></script>
 <body>
-    <h1>Last API Caller (Statistics By User)</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Send" >
-    </form>
+    <h1>Last API Caller (Statistics By Week)</h1>
     <hr>
     <br>
     {% for o in artists %}
         You scrobbled {{ o.artist }} - {{ o.scrobbles }} times. Listeners: {{ o.listeners }}
-
+        <br>
     {% endfor %}
     <br>
-<button onclick="clearBase()">Clear</button>
+<a href="/">Main page</a><br>
 <a href="similar">Similarity check</a>
 </body>
 </html>

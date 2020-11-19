@@ -1,11 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import ArtistForm
-from .apps import getLastFmInfo
-from .apps import getLastFmInfo_similar
-from .apps import pushOrUpdate
-from .apps import get_all_artists
-from .apps import delete_all_artists
+from .apps import *
 
 
 def index(request):
@@ -32,8 +28,7 @@ def similar(request):
 
 
 def by_user(request):
-    if request.method == "POST":
-        
+    return render(request, "my_stats.html", {"artists": getLastWeekList("nordicmaster65")})
 
 def about(request):
     return HttpResponse("<h2>About</h2><p>This is simple LastFm API caller. Check it to compare various artists rating.</p>")

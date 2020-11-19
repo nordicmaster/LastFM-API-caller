@@ -8,6 +8,13 @@ class FirstappConfig(AppConfig):
     name = 'firstapp'
 
 
+class MyWeekArtistInfo:
+    def __init__(self,name,scr,listn):
+        self.artist = name
+        self.scrobbles = scr
+        self.listeners = listn
+
+
 similar_res = ''
 
 
@@ -31,9 +38,25 @@ def getLastFmInfo(name):
     return new_artist
 
 
-def getLastWeekList():
-    pass
-
+def getLastWeekList(myname):
+    url = 'https://ws.audioscrobbler.com/2.0/'
+    myobj = {'method': 'user.getWeeklyArtistChart',
+             'user': myname,
+             'api_key': '57ee3318536b23ee81d6b27e36997cde',
+             'format': 'json'}
+    x = requests.get(url, myobj)
+    xInfo = x.json()
+    if 'error' in xInfo:
+        return xInfo["message"] + "<br>"
+    week_artists = xInfo["weeklyartistchart"]["artist"]
+    result = []
+    for art in week_artists:
+        #add new item to result array
+        # and add there art["name"] and art["playcount"]
+        lsn = getLastFmInfo(art["name"]).listeners
+        artist_in_week_stats = MyWeekArtistInfo(art["name"],art["playcount"],lsn)
+        result.append(artist_in_week_stats)
+    return result
 
 def getLastFmInfo_similar(name):
     url = 'https://ws.audioscrobbler.com/2.0/'
