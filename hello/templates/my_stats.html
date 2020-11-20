@@ -12,8 +12,9 @@
     <hr>
     <br>
     {% for o in artists %}
-        You scrobbled {{ o.artist }} - {{ o.scrobbles }} times. Listeners: {{ o.listeners }}
-        <br>
+    You scrobbled <span class="fixwidth">{{ o.artist }}</span> - <span class="fixwidth2">{{ o.scrobbles }}</span>
+    times. <span class="fixwidth2">Listeners: {{ o.listeners }}</span>
+    <br>
     {% endfor %}
     <br>
 <a href="/">Main page</a><br>
