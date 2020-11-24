@@ -16,3 +16,29 @@
     margin: 0;
     display:inline-block;
 }
+.lineheight {
+    line-height:1;
+}
+		.gtpmenu nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+		.gtpmenu nav ul li {
+  float: left;
+  margin: 0;
+}
+		.gtpmenu nav ul li a, .gtpmenu nav ul li p {
+  display: block;
+  padding: 7px;
+  color: white;
+  margin: 0;
+  text-align: center;
+  text-decoration: underline;
+  background-color: #7a0956;
+}
+		.gtpmenu nav ul li a:hover, .gtpmenu nav ul li p:hover {
+  background-color: #222;
+}
