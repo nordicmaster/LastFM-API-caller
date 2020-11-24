@@ -24,7 +24,7 @@ def similar(request):
     else:
         data = {"message": "Table Of Content:"}
         userform = ArtistForm()
-        return render(request, "similar.html", {"form": userform, "message": "Table Of Content:"})
+        return render(request, "similar.html", {"form": userform, "message": "Similarity Check By Last.fm"})
 
 
 def by_user(request):

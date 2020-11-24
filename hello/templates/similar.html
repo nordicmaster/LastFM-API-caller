@@ -3,11 +3,20 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="{% static "styles.css" %}" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
     <title>L-C</title>
 </head>
 <script src="{% static 'script.js' %}?version=2"></script>
 <body>
+    <div class="gtpmenu lineheight">
+        <nav>
+          <ul>
+            <li><a href="/">Main</a></li>
+            <li><a href="by_user">My Last Week</a></li>
+            <li><a href="similar">Similarity Check</a></li>
+          </ul>
+        </nav>
+    </div>
     <h1>Last API Caller (Similarity)</h1>
     <form method="POST">
         {% csrf_token %}
@@ -17,6 +26,5 @@
     <br>
     {{message | safe}}
     <br>
-<a href="/">Main page</a>
 </body>
 </html>

@@ -8,6 +8,15 @@
 </head>
 <script src="{% static 'script.js' %}?version=2"></script>
 <body>
+    <div class="gtpmenu lineheight">
+    <nav>
+      <ul>
+        <li><a href="/">Main</a></li>
+        <li><a href="by_user">My Last Week</a></li>
+        <li><a href="similar">Similarity Check</a></li>
+      </ul>
+    </nav>
+    </div>
     <h1>Last API Caller (Statistics By Week)</h1>
     <hr>
     <br>
@@ -17,7 +26,5 @@
     <br>
     {% endfor %}
     <br>
-<a href="/">Main page</a><br>
-<a href="similar">Similarity check</a>
 </body>
 </html>
