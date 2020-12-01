@@ -13,6 +13,5 @@
     }
 
     function clearBase() {
-        //request to host
         window.location.href = "deleteAll";
     }

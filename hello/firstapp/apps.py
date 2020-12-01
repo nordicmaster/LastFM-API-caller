@@ -58,6 +58,7 @@ def getLastWeekList(myname):
         result.append(artist_in_week_stats)
     return result
 
+
 def getLastFmInfo_similar(name):
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'artist.getinfo',
