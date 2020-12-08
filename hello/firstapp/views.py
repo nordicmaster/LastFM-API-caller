@@ -33,6 +33,11 @@ def by_user(request):
 
 def by_user_top(request):
     return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65")})
+    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","7day")})
+    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","1month")})
+    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","3month")})
+    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","6month")})
+    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","12month")})
 
 
 def about(request):
