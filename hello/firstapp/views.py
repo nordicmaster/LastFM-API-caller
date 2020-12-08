@@ -30,6 +30,11 @@ def similar(request):
 def by_user(request):
     return render(request, "my_stats.html", {"artists": getLastWeekList("nordicmaster65")})
 
+
+def by_user_top(request):
+    return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65")})
+
+
 def about(request):
     return HttpResponse("<h2>About</h2><p>This is simple LastFm API caller. Check it to compare various artists rating.</p>")
 

@@ -24,5 +24,6 @@ urlpatterns = [
     path('contact', views.contact),
     path('similar', views.similar),
     path('by_user', views.by_user),
+    path('by_user_top', views.by_user_top),
     path('deleteAll', views.deleteAll)
 ]

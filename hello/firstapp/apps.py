@@ -99,3 +99,22 @@ def get_all_artists():
 def delete_all_artists():
     StatsArtist.objects.all().delete()
     return
+
+
+def getTopArtists(myname, period='overall'):
+    url = 'https://ws.audioscrobbler.com/2.0/'
+    myobj = {'method': 'user.getTopArtists',
+             'period': period,
+             'user': myname,
+             'api_key': '57ee3318536b23ee81d6b27e36997cde',
+             'format': 'json'}
+    x = requests.get(url, myobj)
+    xInfo = x.json()
+    if 'error' in xInfo:
+        return xInfo["message"] + "<br>"
+    top_artists = xInfo["topartists"]["artist"]
+    result = []
+    for art in top_artists:
+        artist_in_week_stats = MyWeekArtistInfo(art["name"],art["playcount"],0)
+        result.append(artist_in_week_stats)
+    return result
