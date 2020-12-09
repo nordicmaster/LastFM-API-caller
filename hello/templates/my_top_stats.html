@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <title>L-C</title>
+</head>
+<body>
+    <div class="gtpmenu lineheight">
+    <nav>
+      <ul>
+        <li><a href="/">Main</a></li>
+        <li><a href="by_user">My Last Week</a></li>
+        <li><a href="similar">Similarity Check</a></li>
+      </ul>
+    </nav>
+    </div>
+    <h1>Last API Caller (Statistics By Week)</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Send" >
+    </form>
+    <hr>
+    For a period {{period_name}}:
+    <br>
+    {% for o in artists %}
+    You scrobbled <span class="fixwidth">{{ o.artist }}</span> - <span class="fixwidth2">{{ o.scrobbles }}</span>
+    times. <span class="fixwidth">Listeners: {{ o.listeners }}</span>
+    <br>
+    {% endfor %}
+    <br>
+</body>
+</html>

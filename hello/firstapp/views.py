@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import ArtistForm
+from .forms import *
 from .apps import *
 
 
@@ -32,12 +32,13 @@ def by_user(request):
 
 
 def by_user_top(request):
-    return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65")})
-    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","7day")})
-    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","1month")})
-    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","3month")})
-    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","6month")})
-    #return render(request, "my_stats.html", {"artists": getTopArtists("nordicmaster65","12month")})
+    if request.method == "POST":
+        period = request.POST.get("period")
+        return render(request, "my_top_stats.html", {"form": PeriodForm(),
+                                                     "artists": getTopArtists("nordicmaster65",period),
+                                                     "period_name":period
+                                                     })
+    return render(request, "my_top_stats.html", {"form": PeriodForm(),"artists": getTopArtists("nordicmaster65")})
 
 
 def about(request):
