@@ -101,6 +101,25 @@ def delete_all_artists():
     return
 
 
+def getScrobblesOfCertainArtist(myname, name):
+    url = 'https://ws.audioscrobbler.com/2.0/'
+    myobj = {'method': 'library.getArtists',
+             'user': myname,
+             'limit': 1000,
+             'api_key': '57ee3318536b23ee81d6b27e36997cde',
+             'format': 'json'}
+    x = requests.get(url, myobj)
+    xInfo = x.json()
+    if 'error' in xInfo:
+        return 0
+    library = xInfo["topartists"]["artist"]
+    result = []
+    for art in library:
+        if art["name"] == name:
+            return art["playcount"]
+    return 0
+
+
 def getTopArtists(myname, period='overall'):
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'user.getTopArtists',
@@ -115,6 +134,6 @@ def getTopArtists(myname, period='overall'):
     top_artists = xInfo["topartists"]["artist"]
     result = []
     for art in top_artists:
-        artist_in_week_stats = MyWeekArtistInfo(art["name"],art["playcount"],0)
+        artist_in_week_stats = MyWeekArtistInfo(art["name"],art["playcount"],getScrobblesOfCertainArtist(myname,art["name"]))
         result.append(artist_in_week_stats)
     return result
