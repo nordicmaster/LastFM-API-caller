@@ -112,7 +112,7 @@ def getScrobblesOfCertainArtist(myname, name):
     xInfo = x.json()
     if 'error' in xInfo:
         return 0
-    library = xInfo["topartists"]["artist"]
+    library = xInfo["artists"]["artist"]
     result = []
     for art in library:
         if art["name"] == name:
