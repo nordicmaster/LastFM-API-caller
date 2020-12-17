@@ -19,7 +19,7 @@ from firstapp import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('about', views.about),
     path('contact', views.contact),
     path('similar', views.similar),
