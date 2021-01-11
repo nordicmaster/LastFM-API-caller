@@ -19,6 +19,7 @@ similar_res = ''
 
 
 def getLastFmInfo(name):
+    """ Gets Artist.GetInfo for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'artist.getinfo',
              'artist': name,
@@ -39,6 +40,7 @@ def getLastFmInfo(name):
 
 
 def getLastWeekList(myname):
+    """ Gets User.GetWeeklyArtistChart for specified user"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'user.getWeeklyArtistChart',
              'user': myname,
@@ -60,6 +62,7 @@ def getLastWeekList(myname):
 
 
 def getLastFmInfo_similar(name):
+    """ Gets Artist.GetInfo - similar artists for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'artist.getinfo',
              'artist': name,
@@ -102,6 +105,7 @@ def delete_all_artists():
 
 
 def getScrobblesOfCertainArtist(myname, name):
+    """ Gets scrobbles for specified user for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'library.getArtists',
              'user': myname,
@@ -121,6 +125,7 @@ def getScrobblesOfCertainArtist(myname, name):
 
 
 def getTopArtists(myname, period='overall'):
+    """ Gets User.GetTopArtists for specified user by period"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'user.getTopArtists',
              'period': period,
