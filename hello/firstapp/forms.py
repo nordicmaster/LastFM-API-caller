@@ -14,5 +14,9 @@ class ArtistForm(forms.Form):
     name = forms.CharField(label="Artist")
 
 
+class UserNameForm(forms.Form):
+    username = forms.CharField(label="User", required=False)
+
+
 class PeriodForm(forms.Form):
     period = forms.ChoiceField(choices=PERIOD_CHOICES)

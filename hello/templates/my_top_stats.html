@@ -20,11 +20,12 @@
     <form method="POST">
         {% csrf_token %}
         {{ form }}
+        {{ form_user }}
         <input type="submit" value="Send" >
     </form>
-    <!--add user input form-->
     <hr>
-    For a period {{period_name}}:
+    <br>
+    For a period {{period_name}} (user = {{user_name}}):
     <br>
     {% for o in artists %}
     You scrobbled <span class="fixwidth">{{ o.artist }}</span> - <span class="fixwidth2">{{ o.scrobbles }}</span>

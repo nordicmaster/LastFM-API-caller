@@ -109,7 +109,7 @@ def getScrobblesOfCertainArtist(myname, name):
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'library.getArtists',
              'user': myname,
-             'limit': 1000,
+             'limit': 1500,
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
