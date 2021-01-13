@@ -43,7 +43,7 @@ def by_user_top(request):
                                                      "period_name": period,
                                                      "user_name": username
                                                      })
-    return render(request, "my_top_stats.html", {"form": PeriodForm(), "form_user": UserNameForm(),"artists": [])
+    return render(request, "my_top_stats.html", {"form": PeriodForm(), "form_user": UserNameForm(),"artists": []})
 
 
 def about(request):
