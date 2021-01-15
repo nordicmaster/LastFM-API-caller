@@ -1,17 +1,17 @@
  .fixwidth {
-    width:150px;
+    width:180px;
     margin: 0;
     display:inline-block;
     background-color: beige;
 }
  .fixwidth2 {
-    width:60px;
+    width:90px;
     text-align: right;
     margin: 0;
     display:inline-block;
 }
  .fixwidth3 {
-    width:90px;
+    width:120px;
     text-align: right;
     margin: 0;
     display:inline-block;
@@ -43,5 +43,5 @@
   background-color: #222;
 }
 .bigtext {
-  font-size:150%;
+  font-size:130%;
 }
