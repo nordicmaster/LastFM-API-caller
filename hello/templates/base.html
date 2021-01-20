@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <title>L-C</title>
+</head>
+<script src="{% static 'script.js' %}?version=2"></script>
+<body class="bigtext">
+    <div class="gtpmenu lineheight">
+    <nav>
+      <ul>
+        <li><a href="/">Main</a></li>
+        <li><a href="by_user">My Last Week</a></li>
+        <li><a href="by_user_top">My Top Artists</a></li>
+        <li><a href="similar">Similarity Check</a></li>
+      </ul>
+    </nav>
+    </div>
+
+    {% block title %}{% endblock %}
+    {% block form %}{% endblock %}
+    <hr>
+    <br>
+    {% block content %}{% endblock %}
+    <br>
+    {% block content_clear %}{% endblock %}
+</body>
+</html>
