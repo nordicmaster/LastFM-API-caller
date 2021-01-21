@@ -7,3 +7,6 @@ class StatsArtist(models.Model):
     scrobbles = models.IntegerField()
     ratio = models.FloatField()
     last_seen = models.DateField()
+
+    def __str__(self):
+        return self.artist
