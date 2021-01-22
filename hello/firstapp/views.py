@@ -16,14 +16,12 @@ def index(request):
 
 
 def similar(request):
+    userform = ArtistForm()
     if request.method == "POST":
         name = request.POST.get("name")
         res = getLastFmInfo_similar(name)
-        userform = ArtistForm()
         return render(request, "similar.html", {"form": userform, "message": res})
     else:
-        data = {"message": "Table Of Content:"}
-        userform = ArtistForm()
         return render(request, "similar.html", {"form": userform, "message": "Similarity Check By Last.fm"})
 
 
@@ -39,11 +37,11 @@ def by_user_top(request):
             username = "nordicmaster65"
         return render(request, "my_top_stats.html", {"form": PeriodForm(),
                                                      "form_user": UserNameForm(),
-                                                     "artists": getTopArtists(username,period),
+                                                     "artists": getTopArtists(username, period),
                                                      "period_name": period,
                                                      "user_name": username
                                                      })
-    return render(request, "my_top_stats.html", {"form": PeriodForm(), "form_user": UserNameForm(),"artists": []})
+    return render(request, "my_top_stats.html", {"form": PeriodForm(), "form_user": UserNameForm(), "artists": []})
 
 
 def about(request):
