@@ -3,7 +3,7 @@ python:
   - "3.8"
 # command to install dependencies
 install:
-  - pip install -r Django>=3.1
+  - pip install Django>=3.1
 # command to run tests
 script:
   - python manage.py test
