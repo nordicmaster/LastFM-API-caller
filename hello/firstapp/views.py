@@ -4,15 +4,16 @@ from .forms import *
 from .apps import *
 
 
-def index(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        artist = getLastFmInfo(name)
-        if isinstance(artist, str):
-            return HttpResponse(artist)
-        pushOrUpdate(artist)
-    userform = ArtistForm()
-    return render(request, "index.html", {"form": userform, "artists": get_all_artists()})
+class IndexView():
+    def index(request):
+        if request.method == "POST":
+            name = request.POST.get("name")
+            artist = getLastFmInfo(name)
+            if isinstance(artist, str):
+                return HttpResponse(artist)
+            pushOrUpdate(artist)
+        userform = ArtistForm()
+        return render(request, "index.html", {"form": userform, "artists": get_all_artists()})
 
 
 def similar(request):
