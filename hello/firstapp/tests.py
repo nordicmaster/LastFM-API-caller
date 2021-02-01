@@ -7,8 +7,7 @@ from .models import StatsArtist
 class StatsArtistModelTests(TestCase):
     def test_last_seen_with_future_date(self):
         """
-        was_published_recently() returns False for questions whose pub_date
-        is in the future.
+        all of StatsArtist objects have valid last_seen date (past)
         """
         today = date.today()
         for art in StatsArtist.objects.all():
@@ -18,7 +17,7 @@ class StatsArtistModelTests(TestCase):
 class IndexViewTests(TestCase):
     def test_no_questions(self):
         """
-        If no questions exist, an appropriate message is displayed.
+        Last API Caller - this text is available on Index page
         """
         client = Client()
         response = client.get(reverse('home'))
