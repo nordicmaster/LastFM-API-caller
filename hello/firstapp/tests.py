@@ -5,7 +5,7 @@ from .models import StatsArtist
 
 
 class StatsArtistModelTests(TestCase):
-    def test_last_seen_with_future_date(self):
+    def test_last_seen_with_valid_date(self):
         """
         all of StatsArtist objects have valid last_seen date (past)
         """
@@ -15,7 +15,7 @@ class StatsArtistModelTests(TestCase):
 
 
 class IndexViewTests(TestCase):
-    def test_no_questions(self):
+    def test_index_text(self):
         """
         Last API Caller - this text is available on Index page
         """
