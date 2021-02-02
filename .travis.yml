@@ -4,6 +4,11 @@ python:
 # command to install dependencies
 install:
   - pip install Django>=3.1
+  - pip install django-environ>=0.3.0
+  - pip install django-braces>=1.8.0
+  - pip install django-crispy-forms>=1.4.0
+  - pip install django-admin-bootstrapped>=2.4.0
+  - pip install django-authtools>=1.2.0
 # command to run tests
 script:
   - python hello/manage.py test firstapp
