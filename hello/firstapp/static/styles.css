@@ -1,36 +1,43 @@
- .fixwidth {
-    width:180px;
+.fixwidth {
+    width: 250px;
     margin: 0;
-    display:inline-block;
+    display: inline-block;
     background-color: beige;
 }
- .fixwidth2 {
-    width:90px;
+
+.fixwidth2 {
+    width: 90px;
     text-align: right;
     margin: 0;
-    display:inline-block;
+    display: inline-block;
 }
- .fixwidth3 {
-    width:120px;
+
+.fixwidth3 {
+    width: 120px;
     text-align: right;
     margin: 0;
-    display:inline-block;
+    display: inline-block;
 }
+
 .lineheight {
-    line-height:1;
+    line-height: 1;
 }
-		.gtpmenu nav ul {
+
+.gtpmenu nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
 }
-		.gtpmenu nav ul li {
+
+.gtpmenu nav ul li {
   float: left;
   margin: 0;
 }
-		.gtpmenu nav ul li a, .gtpmenu nav ul li p {
+
+.gtpmenu nav ul li a,
+.gtpmenu nav ul li p {
   display: block;
   padding: 7px;
   color: white;
@@ -39,9 +46,12 @@
   text-decoration: underline;
   background-color: #7a0956;
 }
-		.gtpmenu nav ul li a:hover, .gtpmenu nav ul li p:hover {
+
+.gtpmenu nav ul li a:hover,
+.gtpmenu nav ul li p:hover {
   background-color: #222;
 }
+
 .bigtext {
-  font-size:130%;
+  font-size: 130%;
 }
