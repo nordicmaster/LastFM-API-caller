@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('about', views.about),
     path('contact', views.contact),
-    path('similar', views.similar),
+    path('similar', views.similar, name='similar'),
     path('by_user', views.by_user),
     path('by_user_top', views.by_user_top),
     path('deleteAll', views.deleteAll)
