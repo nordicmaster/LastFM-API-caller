@@ -9,7 +9,7 @@ class FirstappConfig(AppConfig):
 
 
 class MyWeekArtistInfo:
-    def __init__(self,name,scr,listn):
+    def __init__(self, name, scr, listn):
         self.artist = name
         self.scrobbles = scr
         self.listeners = listn
@@ -56,7 +56,7 @@ def getLastWeekList(myname):
         #add new item to result array
         # and add there art["name"] and art["playcount"]
         lsn = getLastFmInfo(art["name"]).listeners
-        artist_in_week_stats = MyWeekArtistInfo(art["name"],art["playcount"],lsn)
+        artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"], lsn)
         result.append(artist_in_week_stats)
     return result
 
@@ -139,6 +139,7 @@ def getTopArtists(myname, period='overall'):
     top_artists = xInfo["topartists"]["artist"]
     result = []
     for art in top_artists:
-        artist_in_week_stats = MyWeekArtistInfo(art["name"],art["playcount"],getScrobblesOfCertainArtist(myname,art["name"]))
+        artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"],
+                                                getScrobblesOfCertainArtist(myname, art["name"]))
         result.append(artist_in_week_stats)
     return result
