@@ -56,5 +56,5 @@ def contact(request):
 
 def deleteAll(request):
     delete_all_artists()
-    return redirect(IndexView.index())
+    return redirect(IndexView.index)
 
