@@ -60,7 +60,7 @@ class SimilarViewTests(TestCase):
 class MyTopViewTests(TestCase):
     def test_top_text(self):
         """
-        Last API Caller - this text is available on Index page
+        Last API Caller - this text is available on By_user_top page
         """
         client = Client()
         response = client.get(reverse('by_user_top'))
