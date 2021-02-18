@@ -55,3 +55,15 @@ class SimilarViewTests(TestCase):
         print(response)
         self.assertEqual(response.status_code, HTTPStatus.OK)
         #self.assertContains(response.content, strname, html=True)
+
+        
+class MyTopViewTests(TestCase):
+    def test_top_text(self):
+        """
+        Last API Caller - this text is available on Index page
+        """
+        client = Client()
+        response = client.get('by_user_top')
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, "Last API Caller")
+        self.assertContains(response, "form")
