@@ -51,10 +51,16 @@ class SimilarViewTests(TestCase):
         response = client.post(
             "/similar", data={"name": strname}
         )
+        print("strname: ")
         print(strname)
+        print("response: ")
         print(response)
+        print("response content: ")
+        print(response.content)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        #self.assertContains(response.content, strname, html=True)
+        if ("The artist you supplied could not be found" not in response.content.decode()):
+            print(strname)
+            self.assertContains(response, strname, html=True)
 
         
 class MyTopViewTests(TestCase):
