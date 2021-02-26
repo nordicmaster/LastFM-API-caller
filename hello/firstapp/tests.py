@@ -52,7 +52,7 @@ class SimilarViewTests(TestCase):
             "/similar", data={"name": strname}
         )
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        if ("The artist you supplied could not be found" not in response.content.decode()):
+        if "The artist you supplied could not be found" not in response.content.decode():
             self.assertContains(response, strname, html=True)
 
         
