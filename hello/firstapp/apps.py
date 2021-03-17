@@ -13,6 +13,10 @@ class MyWeekArtistInfo:
         self.artist = name
         self.scrobbles = scr
         self.listeners = listn
+        
+class MyComparisonInfo:
+    def __init__(self, users):
+        self.users = users
 
 
 similar_res = ''
