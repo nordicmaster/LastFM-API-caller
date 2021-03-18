@@ -13,10 +13,14 @@ class MyWeekArtistInfo:
         self.artist = name
         self.scrobbles = scr
         self.listeners = listn
-        
+
+
 class MyComparisonInfo:
-    def __init__(self, users):
-        self.users = users
+    def __init__(self, name, scr, listn, user_listn):
+        self.artist = name
+        self.scrobbles = scr
+        self.listeners = listn
+        self.user_listn = user_listn
 
 
 similar_res = ''
@@ -145,5 +149,27 @@ def getTopArtists(myname, period='overall'):
     for art in top_artists:
         artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"],
                                                 getScrobblesOfCertainArtist(myname, art["name"]))
+        result.append(artist_in_week_stats)
+    return result
+
+
+def getTopSimilarArtists(other_username, myname='nordicmaster65', period='overall'):
+    """ Gets my User.GetTopArtists and other user by period"""
+    url = 'https://ws.audioscrobbler.com/2.0/'
+    myobj = {'method': 'user.getTopArtists',
+             'period': period,
+             'user': myname,
+             'api_key': '57ee3318536b23ee81d6b27e36997cde',
+             'format': 'json'}
+    x = requests.get(url, myobj)
+    xInfo = x.json()
+    if 'error' in xInfo:
+        return xInfo["message"] + "<br>"
+    top_artists = xInfo["topartists"]["artist"]
+    result = []
+    for art in top_artists:
+        artist_in_week_stats = MyComparisonInfo(art["name"], art["playcount"],
+                                                getScrobblesOfCertainArtist(myname, art["name"]),
+                                                getScrobblesOfCertainArtist(other_username, art["name"]))
         result.append(artist_in_week_stats)
     return result

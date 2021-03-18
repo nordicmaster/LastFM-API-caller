@@ -25,5 +25,6 @@ urlpatterns = [
     path('similar', views.similar, name='similar'),
     path('by_user', views.by_user),
     path('by_user_top', views.by_user_top, name='by_user_top'),
+    path('by_user_top_compare', views.by_user_top_compare, name='by_user_top_compare'),
     path('deleteAll', views.deleteAll)
 ]
