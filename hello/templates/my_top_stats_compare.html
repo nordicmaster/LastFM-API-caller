@@ -12,10 +12,11 @@
     For a period {{period_name}} YOU and {{user_name}}:
     <br>
     {% for o in artists %}
-    {{ forloop.counter|stringformat:"02d"}}. You scrobbled <span class="fixwidth">{{ o.artist }}</span>
-    - <span class="fixwidth2">{{ o.scrobbles }}</span>
-    times. <span class="fixwidth">And total: {{ o.listeners }}</span> times. And
-    <span class="fixwidth">{{user_name}} total: {{ o.user_listn }}</span>
-    <br>
+    <div class="compare_row">
+        {{ forloop.counter|stringformat:"02d"}}. You scrobbled <span class="fixwidth">{{ o.artist }}</span>
+        - <span class="fixwidth2">{{ o.scrobbles }}</span>
+        times. <span class="fixwidth">And total: {{ o.listeners }}</span> times. And
+        <span class="fixwidth">{{user_name}} total: {{ o.user_listn }}</span>
+    </div>
     {% endfor %}
 {% endblock %}

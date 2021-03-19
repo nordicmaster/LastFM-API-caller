@@ -55,3 +55,8 @@
 .bigtext {
   font-size: 130%;
 }
+
+.compare_row:hover {
+    color: red;
+    background-color: #ccc;
+}
