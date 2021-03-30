@@ -12,8 +12,9 @@
     For a period {{period_name}} (user = {{user_name}}):
     <br>
     {% for o in artists %}
+    <div class="compare_row">
     {{ forloop.counter|stringformat:"02d"}}. You scrobbled <span class="fixwidth">{{ o.artist }}</span> - <span class="fixwidth2">{{ o.scrobbles }}</span>
     times. <span class="fixwidth">And total: {{ o.listeners }}</span> times.
-    <br>
+    </div>
     {% endfor %}
 {% endblock %}
