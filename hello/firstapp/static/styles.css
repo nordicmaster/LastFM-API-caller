@@ -39,12 +39,12 @@
 .gtpmenu nav ul li a,
 .gtpmenu nav ul li p {
   display: block;
-  padding: 7px;
+  padding: 8px;
   color: white;
   margin: 0;
   text-align: center;
   text-decoration: underline;
-  background-color: #7a0956;
+  background-color: #8a2966;
 }
 
 .gtpmenu nav ul li a:hover,
