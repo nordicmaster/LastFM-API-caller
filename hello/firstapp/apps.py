@@ -69,6 +69,26 @@ def getLastWeekList(myname):
     return result
 
 
+def getTopTags(artist):
+    """ Gets User.GetWeeklyArtistChart for specified user"""
+    url = 'https://ws.audioscrobbler.com/2.0/'
+    myobj = {'method': 'artist.gettoptags',
+             'artist': artist,
+             'api_key': '57ee3318536b23ee81d6b27e36997cde',
+             'format': 'json'}
+    x = requests.get(url, myobj)
+    xInfo = x.json()
+    if 'error' in xInfo:
+        return xInfo["message"] + "<br>"
+    tags = xInfo["toptags"]["tag"]
+    result = []
+    for tag in tags:
+        name = tag["name"]
+        count = tag["count"]
+        result.append(name, count) #dictionary name-count
+    return result
+
+
 def getLastFmInfo_similar(name):
     """ Gets Artist.GetInfo - similar artists for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
