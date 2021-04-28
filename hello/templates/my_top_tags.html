@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}<h1>Last API Caller (Tags By Period)</h1>{% endblock %}
+{% block form %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        {{ form_user }}
+        <input type="submit" value="Send" >
+    </form>
+{% endblock %}
+{% block content %}
+    For a period {{period_name}} for {{user_name}}:
+    <br>
+    {% for o in tags %}
+    <div class="compare_row">
+        {{ forloop.counter|stringformat:"02d"}}. <span class="fixwidth">{{ o.name }}</span>
+        - <span class="fixwidth2">{{ o.count }}</span>
+    </div>
+    {% endfor %}
+{% endblock %}
