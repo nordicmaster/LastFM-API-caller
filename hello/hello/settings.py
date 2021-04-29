@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
-import django
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'firstapp',
-    'firstapp.models.StatsArtist',
 ]
 
 MIDDLEWARE = [
@@ -128,5 +126,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "firstapp/static"),
 ]
-
-django.setup()
