@@ -45,6 +45,21 @@ def by_user_top(request):
     return render(request, "my_top_stats.html", {"form": PeriodForm(), "form_user": UserNameForm(), "artists": []})
 
 
+def by_user_top_tags(request):
+    if request.method == "POST":
+        period = request.POST.get("period")
+        username = request.POST.get("username")
+        if username == "":
+            username = "nordicmaster65"
+        return render(request, "my_top_tags.html", {"form": PeriodForm(),
+                                                    "form_user": UserNameForm(),
+                                                    "tags": getTopTagsByUser(username, period),
+                                                    "period_name": period,
+                                                    "user_name": username
+                                                    })
+    return render(request, "my_top_tags.html", {"form": PeriodForm(), "form_user": UserNameForm(), "tags": []})
+
+
 def by_user_top_compare(request):
     if request.method == "POST":
         period = request.POST.get("period")

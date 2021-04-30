@@ -23,6 +23,12 @@ class MyComparisonInfo:
         self.user_listn = user_listn
 
 
+class MyTagInfo:
+    def __init__(self, name: str, count: int):
+        self.name = name
+        self.count = count
+
+
 similar_res = ''
 
 
@@ -69,6 +75,36 @@ def getLastWeekList(myname):
     return result
 
 
+def getTopTagsByUser(username, period='overall'):
+    """ Gets User.GetTopArtists by period and calculates top tags"""
+    url = 'https://ws.audioscrobbler.com/2.0/'
+    myobj = {'method': 'user.getTopArtists',
+             'period': period,
+             'user': username,
+             'api_key': '57ee3318536b23ee81d6b27e36997cde',
+             'format': 'json'}
+    x = requests.get(url, myobj)
+    xInfo = x.json()
+    if 'error' in xInfo:
+        return xInfo["message"] + "<br>"
+    top_artists = xInfo["topartists"]["artist"]
+    result = []
+    for art in top_artists:
+        tags = getTopTags(art["name"])
+        for tg in tags:
+            #if any(x.name == tg.name for x in result):
+            exist = False
+            for i in enumerate(result):
+                if i[1].name == tg.name:
+                    i[1].count += tg.count * int(art["playcount"])
+                    exist = True
+                    break
+            if not exist:
+                result.append(MyTagInfo(tg.name, tg.count * int(art["playcount"])))
+    result.sort(key=lambda x: x.count, reverse=True)
+    return result
+
+
 def getTopTags(artist):
     """ Gets Artist.GetTopTags for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
@@ -81,11 +117,12 @@ def getTopTags(artist):
     if 'error' in xInfo:
         return xInfo["message"] + "<br>"
     tags = xInfo["toptags"]["tag"]
-    result = {}
+    result = []
     for tag in tags:
-        name = tag["name"]
-        count = tag["count"]
-        result[name] = count #dictionary name-count
+        if tag["name"] == 'seen live':
+            continue
+        if tag["count"] > 10:
+            result.append(MyTagInfo(tag["name"], tag["count"]))
     return result
 
 
