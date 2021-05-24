@@ -9,9 +9,11 @@
 {% endblock %}
 {% block content %}
     {% for o in artists %}
+    <div class="compare_row">
         <span class="fixwidth"> {{ o.artist }} </span> has <span class="fixwidth2">
         {{ o.listeners }} </span> listeners and <span class="fixwidth3">
-        {{ o.scrobbles }} </span> scrobbles. Ratio= {{ o.ratio }} <br>
+        {{ o.scrobbles }} </span> scrobbles. Ratio= {{ o.ratio }}
+    </div>
     {% endfor %}
 {% endblock %}
 {% block content_clear %}
