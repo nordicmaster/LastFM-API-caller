@@ -8,11 +8,11 @@
     </form>
 {% endblock %}
 {% block content %}
-    {% for o in artists %}
+    {% for o in artists|dictsortreversed:"ratio" %}
     <div class="compare_row">
         <span class="fixwidth"> {{ o.artist }} </span> has <span class="fixwidth2">
         {{ o.listeners }} </span> listeners and <span class="fixwidth3">
-        {{ o.scrobbles }} </span> scrobbles. Ratio= {{ o.ratio }}
+        {{ o.scrobbles }} </span> scrobbles. Ratio= {{ o.ratio|floatformat:3|safe|rjust:15 }}
     </div>
     {% endfor %}
 {% endblock %}
