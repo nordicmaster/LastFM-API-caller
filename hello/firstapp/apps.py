@@ -158,7 +158,7 @@ def getLastFmInfo_similar(name):
 
 
 def pushOrUpdate(myartist: StatsArtist):
-    print(StatsArtist.objects.filter(artist=myartist.artist))
+    #print(StatsArtist.objects.filter(artist=myartist.artist))
     if StatsArtist.objects.filter(artist=myartist.artist):
         StatsArtist.objects.filter(artist=myartist.artist).update(listeners=myartist.listeners, scrobbles=myartist.scrobbles,
                                                               ratio=myartist.ratio, last_seen=myartist.last_seen)

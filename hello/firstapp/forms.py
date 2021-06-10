@@ -1,4 +1,5 @@
 from django import forms
+from django.template.defaulttags import register
 
 PERIOD_CHOICES = (
     ("7day", "7day"),
@@ -7,6 +8,12 @@ PERIOD_CHOICES = (
     ("6month", "6month"),
     ("12month", "12month"),
     ("overall", "overall"),
+)
+
+SELECT_CHOICES = (
+    (u"listeners", "listeners"),
+    (u"scrobbles", "scrobbles"),
+    (u"ratio", "ratio"),
 )
 
 
@@ -20,3 +27,8 @@ class UserNameForm(forms.Form):
 
 class PeriodForm(forms.Form):
     period = forms.ChoiceField(choices=PERIOD_CHOICES)
+
+
+class SortSelect(forms.Form):
+    the_field = forms.ChoiceField(choices=SELECT_CHOICES)
+

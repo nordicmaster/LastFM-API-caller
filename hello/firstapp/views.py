@@ -12,8 +12,8 @@ class IndexView():
             if isinstance(artist, str):
                 return HttpResponse(artist)
             pushOrUpdate(artist)
-        userform = ArtistForm()
-        return render(request, "index.html", {"form": userform, "artists": get_all_artists()})
+        return render(request, "index.html",
+                      {"form": ArtistForm(), "f": SortSelect(), "artists": get_all_artists()})
 
 
 def similar(request):
@@ -67,16 +67,18 @@ def by_user_top_compare(request):
         if username == "":
             username = "nordicmaster65"
         return render(request, "my_top_stats_compare.html", {"form": PeriodForm(),
-                                                     "form_user": UserNameForm(),
-                                                     "artists": getTopSimilarArtists(username, period=period),
-                                                     "period_name": period,
-                                                     "user_name": username
-                                                     })
-    return render(request, "my_top_stats_compare.html", {"form": PeriodForm(), "form_user": UserNameForm(), "artists": []})
+                                                             "form_user": UserNameForm(),
+                                                             "artists": getTopSimilarArtists(username, period=period),
+                                                             "period_name": period,
+                                                             "user_name": username
+                                                             })
+    return render(request, "my_top_stats_compare.html",
+                  {"form": PeriodForm(), "form_user": UserNameForm(), "artists": []})
 
 
 def about(request):
-    return HttpResponse("<h2>About</h2><p>This is simple LastFm API caller. Check it to compare various artists rating.</p>")
+    return HttpResponse(
+        "<h2>About</h2><p>This is simple LastFm API caller. Check it to compare various artists rating.</p>")
 
 
 def contact(request):
@@ -87,4 +89,3 @@ def contact(request):
 def deleteAll(request):
     delete_all_artists()
     return redirect(IndexView.index)
-
