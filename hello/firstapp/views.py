@@ -13,7 +13,7 @@ class IndexView():
                 return HttpResponse(artist)
             pushOrUpdate(artist)
         return render(request, "index.html",
-                      {"form": ArtistForm(), "f": SortSelect(), "artists": get_all_artists()})
+                      {"form": ArtistForm(), "artists": get_all_artists()})
 
 
 def similar(request):
