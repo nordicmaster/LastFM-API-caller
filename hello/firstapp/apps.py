@@ -94,12 +94,9 @@ def getTopTagsByUser(username, period='overall'):
     result = []
     for art in top_artists:
         tags = getTopTags(art["name"])
-        #print(art["name"])
         if type(tags) == str:
             continue
         for tg in tags:
-            #print(str(tg))
-            #if any(x.name == tg.name for x in result):
             exist = False
             for i in enumerate(result):
                 if i[1].name == tg.name:
