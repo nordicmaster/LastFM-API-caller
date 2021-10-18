@@ -70,8 +70,6 @@ def getLastWeekList(myname):
     week_artists = xInfo["weeklyartistchart"]["artist"]
     result = []
     for art in week_artists:
-        #add new item to result array
-        # and add there art["name"] and art["playcount"]
         lsn = getLastFmInfo(art["name"]).listeners
         artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"], lsn)
         result.append(artist_in_week_stats)
