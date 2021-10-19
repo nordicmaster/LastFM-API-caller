@@ -32,7 +32,7 @@ class MyTagInfo:
         return self.name + ": " + str(self.count) + "; "
 
 
-similar_res = ''
+#similar_res = ''
 
 
 def getLastFmInfo(name):
@@ -137,7 +137,7 @@ def getLastFmInfo_similar(name):
              'format': 'json'}
     x = requests.get(url, myobj)
     xInfo = x.json()
-    global similar_res
+    similar_res = ''
     if 'error' in xInfo:
         similar_res = similar_res + xInfo["message"] + "<br>"
         return similar_res
@@ -232,3 +232,26 @@ def getTopSimilarArtists(other_username, myname='nordicmaster65', period='overal
                                                 getScrobblesOfCertainArtist(other_username, art["name"]))
         result.append(artist_in_week_stats)
     return result
+
+def getDBInfo_similar(name):
+    similar_db_res = "As popular as (in database): <br>"
+    if StatsArtist.objects.filter(artist=name):
+        artist_listeners = list(StatsArtist.objects.filter(artist=name))[0].listeners
+        similar_db_arr_names = []
+        percent_step = 3
+        percent_i = 1
+        while (len(similar_db_arr_names) < 5) and (percent_i < 10):
+            min_listeners = artist_listeners * (1 - 0.01*percent_step*percent_i)
+            max_listeners = artist_listeners * (1 + 0.01*percent_step*percent_i)
+            for p in StatsArtist.objects.all():
+                if (p.artist == name):
+                    continue
+                if (p.artist in similar_db_arr_names):
+                    continue
+                if (p.listeners > min_listeners and p.listeners < max_listeners):
+                    similar_db_arr_names.append(p.artist)
+            percent_i += 1
+        similar_db_res += ', '.join(similar_db_arr_names) + "<br>"
+    else:
+        similar_db_res += name + 'is not in database'
+    return similar_db_res

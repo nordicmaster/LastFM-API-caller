@@ -21,9 +21,11 @@ def similar(request):
     if request.method == "POST":
         name = request.POST.get("name")
         res = getLastFmInfo_similar(name)
-        return render(request, "similar.html", {"form": userform, "message": res})
+        res2 = getDBInfo_similar(name)
+        return render(request, "similar.html", {"form": userform, "message": res, "message_mydb": res2})
     else:
-        return render(request, "similar.html", {"form": userform, "message": "Similarity Check By Last.fm"})
+        return render(request, "similar.html", {"form": userform, "message": "Similarity Check By Last.fm",
+                                                                  "message_mydb": "Similarity By My Database"})
 
 
 def by_user(request):
