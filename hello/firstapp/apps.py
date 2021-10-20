@@ -32,9 +32,6 @@ class MyTagInfo:
         return self.name + ": " + str(self.count) + "; "
 
 
-#similar_res = ''
-
-
 def getLastFmInfo(name):
     """ Gets Artist.GetInfo for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
@@ -234,24 +231,29 @@ def getTopSimilarArtists(other_username, myname='nordicmaster65', period='overal
     return result
 
 def getDBInfo_similar(name):
-    similar_db_res = "As popular as (in database): <br>"
+    similar_db_res = "<i>" + name + "</i> is popular as (in database): <br>"
     if StatsArtist.objects.filter(artist=name):
         artist_listeners = list(StatsArtist.objects.filter(artist=name))[0].listeners
+        artist_scrobbles = list(StatsArtist.objects.filter(artist=name))[0].scrobbles
         similar_db_arr_names = []
         percent_step = 3
         percent_i = 1
         while (len(similar_db_arr_names) < 5) and (percent_i < 10):
-            min_listeners = artist_listeners * (1 - 0.01*percent_step*percent_i)
-            max_listeners = artist_listeners * (1 + 0.01*percent_step*percent_i)
+            min_listeners = artist_listeners * (1 - 0.01 * percent_step * percent_i)
+            max_listeners = artist_listeners * (1 + 0.01 * percent_step * percent_i)
+            min_scrobbles = artist_scrobbles * (1 - 0.01 * percent_step * percent_i)
+            max_scrobbles = artist_scrobbles * (1 + 0.01 * percent_step * percent_i)
             for p in StatsArtist.objects.all():
-                if (p.artist == name):
+                if p.artist == name:
                     continue
-                if (p.artist in similar_db_arr_names):
+                if p.artist in similar_db_arr_names:
                     continue
-                if (p.listeners > min_listeners and p.listeners < max_listeners):
+                if (p.listeners > min_listeners and p.listeners < max_listeners and
+                    p.scrobbles > min_scrobbles and p.scrobbles < max_scrobbles):
                     similar_db_arr_names.append(p.artist)
             percent_i += 1
         similar_db_res += ', '.join(similar_db_arr_names) + "<br>"
+        similar_db_res += 'with ' + str(artist_listeners) + ' listeners and ' + str(artist_scrobbles) + ' scrobbles<br>'
     else:
         similar_db_res += name + 'is not in database'
     return similar_db_res
