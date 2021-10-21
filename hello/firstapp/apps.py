@@ -2,6 +2,7 @@ from django.apps import AppConfig
 from .models import StatsArtist
 from datetime import date
 import requests
+import matplotlib.pyplot as plt
 
 
 class FirstappConfig(AppConfig):
@@ -46,7 +47,7 @@ def getLastFmInfo(name):
     listeners = xInfo["artist"]["stats"]["listeners"]
     totalscrobbles = xInfo["artist"]["stats"]["playcount"]
     new_artist = StatsArtist(last_seen=date.today(),
-                             ratio=float(totalscrobbles)/float(listeners),
+                             ratio=float(totalscrobbles) / float(listeners),
                              scrobbles=totalscrobbles,
                              listeners=listeners,
                              artist=name)
@@ -150,10 +151,11 @@ def getLastFmInfo_similar(name):
 
 
 def pushOrUpdate(myartist: StatsArtist):
-    #print(StatsArtist.objects.filter(artist=myartist.artist))
+    # print(StatsArtist.objects.filter(artist=myartist.artist))
     if StatsArtist.objects.filter(artist=myartist.artist):
-        StatsArtist.objects.filter(artist=myartist.artist).update(listeners=myartist.listeners, scrobbles=myartist.scrobbles,
-                                                              ratio=myartist.ratio, last_seen=myartist.last_seen)
+        StatsArtist.objects.filter(artist=myartist.artist).update(listeners=myartist.listeners,
+                                                                  scrobbles=myartist.scrobbles,
+                                                                  ratio=myartist.ratio, last_seen=myartist.last_seen)
     else:
         myartist.save()
     return
@@ -230,12 +232,15 @@ def getTopSimilarArtists(other_username, myname='nordicmaster65', period='overal
         result.append(artist_in_week_stats)
     return result
 
+
 def getDBInfo_similar(name):
     similar_db_res = "<i>" + name + "</i> is popular as (in database): <br>"
     if StatsArtist.objects.filter(artist=name):
         artist_listeners = list(StatsArtist.objects.filter(artist=name))[0].listeners
         artist_scrobbles = list(StatsArtist.objects.filter(artist=name))[0].scrobbles
         similar_db_arr_names = []
+        filtered_artists = []
+        filtered_artists.append(StatsArtist.objects.filter(artist=name)[0])
         percent_step = 3
         percent_i = 1
         while (len(similar_db_arr_names) < 5) and (percent_i < 10):
@@ -249,11 +254,27 @@ def getDBInfo_similar(name):
                 if p.artist in similar_db_arr_names:
                     continue
                 if (p.listeners > min_listeners and p.listeners < max_listeners and
-                    p.scrobbles > min_scrobbles and p.scrobbles < max_scrobbles):
+                        p.scrobbles > min_scrobbles and p.scrobbles < max_scrobbles):
                     similar_db_arr_names.append(p.artist)
+                    filtered_artists.append(p)
             percent_i += 1
         similar_db_res += ', '.join(similar_db_arr_names) + "<br>"
         similar_db_res += 'with ' + str(artist_listeners) + ' listeners and ' + str(artist_scrobbles) + ' scrobbles<br>'
+        # matplotlib
+        # todo: run matplotlib in separate thread
+        fig, ax = plt.subplots()
+        x_axis = []
+        y_axis = []
+        for p in filtered_artists:
+            x_axis.append(p.listeners)
+            y_axis.append(p.scrobbles)
+        sc = ax.scatter(x_axis, y_axis)
+        for p in filtered_artists:
+            p_ratio = float(p.scrobbles) / float(p.listeners)
+            ax.annotate(p.artist + '(' + str(round(p_ratio, 2)) + ')', (p.listeners, p.scrobbles))
+        plt.xlabel("listeners")
+        plt.ylabel("scrobbles")
+        plt.show()
     else:
         similar_db_res += name + 'is not in database'
     return similar_db_res
