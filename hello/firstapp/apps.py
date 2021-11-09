@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 
 
 class FirstappConfig(AppConfig):
-    name = 'firstapp'
+    name = 'my_firstapp'
+    verbose_name = "First App"
 
 
 class MyWeekArtistInfo:
