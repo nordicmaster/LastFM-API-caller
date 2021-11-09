@@ -3,8 +3,7 @@ python:
   - "3.8.5"
 # command to install dependencies
 install:
-  - pip install Django>=3.1
-  - pip install requests
+  - pip install -r requirements.txt
 # command to run tests
 script:
   - python hello/manage.py makemigrations
