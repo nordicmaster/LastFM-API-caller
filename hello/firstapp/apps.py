@@ -2,7 +2,6 @@ from django.apps import AppConfig
 from .models import StatsArtist
 from datetime import date
 import requests
-import functools
 import matplotlib.pyplot as plt
 
 
@@ -103,9 +102,9 @@ def getTopTagsByUser(username, period='overall'):
                     break
             if not exist:
                 result.append(MyTagInfo(tg.name, tg.count * int(art["playcount"])))
-    result.sort(key=lambda x: x.count, reverse=True)
-    all_tagcount = functools.reduce(lambda x, y: x.count+y.count, result)
-    result = list(map(lambda x: x.count = x.count / all_tagcount, result))
+    result.sort(key=lambda tag: tag.count, reverse=True)
+    all_tagcount = sum(x.count for x in result)
+    result = list(map(lambda tag_reduced: MyTagInfo(tag_reduced.name, 100 * tag_reduced.count / all_tagcount), result))
     return result
 
 

@@ -14,7 +14,7 @@
     {% for o in tags %}
     <div class="compare_row">
         {{forloop.counter|stringformat:"03d"}}. <span class="fixwidth">{{ o.name }}</span>
-        - <span class="fixwidth2">{{ o.count }}</span>
+        - <span class="fixwidth2">{{ o.count |stringformat:".3f"}}</span>
     </div>
     {% endfor %}
 {% endblock %}
