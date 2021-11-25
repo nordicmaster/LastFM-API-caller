@@ -26,6 +26,28 @@ class MyComparisonInfo:
 
 
 class MyTagInfo:
+    ignore_tags_common = ['rock', 'metal']
+    ignore_tags_trash = ['seen live', '80s', 'my favourite viking metal band', 'wintersun metal', 'time metal', '3',
+                         'blacker than the blackest black times infinity', 'Awesome', 'under 2000 listeners', '70s',
+                         'badass axeman', 'melo death', 'melodeath', 'melodeath metal', 'steven wilson', 'All', 'deep',
+                         'MY BEST BEND', 'favourite', 'music', 'lamb of god', 'Dark Tranquility', 'dimmu borgir',
+                         'oldies', 'anime', 'hip-hop for people who do not like hip-hop', 'video game music', 'trap',
+                         'Game Music', 'youtube', 'twee', 'game', 'queer', 'spotify', 'attention whore', 'political',
+                         'toilet', 'racism', '60s', '90s', '00s', '10s', 'want', 'Grayscale Records',
+                         'Italians do it better', 'neutral', 'under 100 listeners']
+    ignore_tags_countries = ['finnish', 'finland', 'finnish metal', 'bulgarian metal', 'british', 'Estonian metal',
+                             'swedish', 'french', 'france', 'german', 'italian', 'russian', 'norwegian', 'estonian',
+                             'Norway', 'swiss', 'Eesti', 'brazilian', 'hungarian', 'Faroese', 'Canadian', 'australian',
+                             'Ukrainian', 'turkish', 'Ukraine', 'chinese', 'Greek', 'afghanistan', 'brazil', 'afghan',
+                             'afganian', 'deutsch', 'egyptian', 'egypt', 'dutch', 'USA', 'Portugal', 'Swedish Metal',
+                             'austrian', 'Czech', 'Sweden', 'Armenian', 'canada', 'canadian metal', 'australia',
+                             'american', 'switzerland', 'bulgarian', 'japanese', 'European Metal', 'bangla',
+                             'bangladesh', 'Bangla Metal', 'bangladeshi', 'Bangali', 'BanglaSong','bangladeshian metal',
+                             'suomi metalli', 'bengali', 'polish', 'Italy', 'italian metal', 'danish', 'irish','poland',
+                             'latvian', 'German metal', 'russian metal', 'americana', 'Minnesota', 'miami', 'Canadiana',
+                             'Winnipeg', 'Romanian', 'belgian', 'japan', 'Suomi', 'denmark', 'United States',
+                             'portuguese', 'portuguese metal', 'andorra', 'spanish', 'Russia', 'US MEtal', 'serbian']
+
     def __init__(self, name: str, count: int):
         self.name = name
         self.count = count
@@ -122,7 +144,9 @@ def getTopTags(artist):
     tags = xInfo["toptags"]["tag"]
     result = []
     for tag in tags:
-        if tag["name"] == 'seen live':
+        if tag["name"] in MyTagInfo.ignore_tags_trash:
+            continue
+        if tag["name"] in MyTagInfo.ignore_tags_countries:
             continue
         if tag["count"] > 10:
             result.append(MyTagInfo(tag["name"], tag["count"]))
