@@ -33,8 +33,8 @@ class MyTagInfo:
                          'MY BEST BEND', 'favourite', 'music', 'lamb of god', 'Dark Tranquility', 'dimmu borgir',
                          'oldies', 'anime', 'hip-hop for people who do not like hip-hop', 'video game music', 'trap',
                          'Game Music', 'youtube', 'twee', 'game', 'queer', 'spotify', 'attention whore', 'political',
-                         'toilet', 'racism', '60s', '90s', '00s', '10s', 'want', 'Grayscale Records',
-                         'Italians do it better', 'neutral', 'under 100 listeners']
+                         'toilet', 'racism', '60s', '90s', '00s', '10s', 'want', 'Grayscale Records', 'Winter Metal',
+                         'Italians do it better', 'neutral', 'under 100 listeners', 'someday I will listen this']
     ignore_tags_countries = ['finnish', 'finland', 'finnish metal', 'bulgarian metal', 'british', 'Estonian metal',
                              'swedish', 'french', 'france', 'german', 'italian', 'russian', 'norwegian', 'estonian',
                              'Norway', 'swiss', 'Eesti', 'brazilian', 'hungarian', 'Faroese', 'Canadian', 'australian',
@@ -148,7 +148,7 @@ def getTopTags(artist):
             continue
         if tag["name"] in MyTagInfo.ignore_tags_countries:
             continue
-        if tag["count"] > 10:
+        if tag["count"] > 20:
             result.append(MyTagInfo(tag["name"], tag["count"]))
     return result
 
