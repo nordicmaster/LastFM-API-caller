@@ -3,6 +3,7 @@ from .models import StatsArtist
 from datetime import date
 import requests
 import json
+import os
 import matplotlib.pyplot as plt
 
 
