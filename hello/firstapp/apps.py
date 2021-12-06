@@ -2,6 +2,7 @@ from django.apps import AppConfig
 from .models import StatsArtist
 from datetime import date
 import requests
+import json
 import matplotlib.pyplot as plt
 
 
@@ -27,26 +28,13 @@ class MyComparisonInfo:
 
 class MyTagInfo:
     ignore_tags_common = ['rock', 'metal']
-    ignore_tags_trash = ['seen live', '80s', 'my favourite viking metal band', 'wintersun metal', 'time metal', '3',
-                         'blacker than the blackest black times infinity', 'Awesome', 'under 2000 listeners', '70s',
-                         'badass axeman', 'melo death', 'melodeath', 'melodeath metal', 'steven wilson', 'All', 'deep',
-                         'MY BEST BEND', 'favourite', 'music', 'lamb of god', 'Dark Tranquility', 'dimmu borgir',
-                         'oldies', 'anime', 'hip-hop for people who do not like hip-hop', 'video game music', 'trap',
-                         'Game Music', 'youtube', 'twee', 'game', 'queer', 'spotify', 'attention whore', 'political',
-                         'toilet', 'racism', '60s', '90s', '00s', '10s', 'want', 'Grayscale Records', 'Winter Metal',
-                         'Italians do it better', 'neutral', 'under 100 listeners', 'someday I will listen this']
-    ignore_tags_countries = ['finnish', 'finland', 'finnish metal', 'bulgarian metal', 'british', 'Estonian metal',
-                             'swedish', 'french', 'france', 'german', 'italian', 'russian', 'norwegian', 'estonian',
-                             'Norway', 'swiss', 'Eesti', 'brazilian', 'hungarian', 'Faroese', 'Canadian', 'australian',
-                             'Ukrainian', 'turkish', 'Ukraine', 'chinese', 'Greek', 'afghanistan', 'brazil', 'afghan',
-                             'afganian', 'deutsch', 'egyptian', 'egypt', 'dutch', 'USA', 'Portugal', 'Swedish Metal',
-                             'austrian', 'Czech', 'Sweden', 'Armenian', 'canada', 'canadian metal', 'australia',
-                             'american', 'switzerland', 'bulgarian', 'japanese', 'European Metal', 'bangla',
-                             'bangladesh', 'Bangla Metal', 'bangladeshi', 'Bangali', 'BanglaSong','bangladeshian metal',
-                             'suomi metalli', 'bengali', 'polish', 'Italy', 'italian metal', 'danish', 'irish','poland',
-                             'latvian', 'German metal', 'russian metal', 'americana', 'Minnesota', 'miami', 'Canadiana',
-                             'Winnipeg', 'Romanian', 'belgian', 'japan', 'Suomi', 'denmark', 'United States',
-                             'portuguese', 'portuguese metal', 'andorra', 'spanish', 'Russia', 'US MEtal', 'serbian']
+    with open('firstapp/static/ignore_tags_trash.json') as f_ignore_tags_trash:
+        data = json.load(f_ignore_tags_trash)
+        ignore_tags_trash = data
+
+    with open('firstapp/static/ignore_tags_countries.json') as f_ignore_tags_countries:
+        data = json.load(f_ignore_tags_countries)
+        ignore_tags_countries = data
 
     def __init__(self, name: str, count: int):
         self.name = name
