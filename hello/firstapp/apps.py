@@ -29,6 +29,8 @@ class MyComparisonInfo:
 
 class MyTagInfo:
     ignore_tags_common = ['rock', 'metal']
+    print(os.path.join(os.path.dirname(__file__))
+    print(os.path.join(os.path.dirname(__file__),'/static','ignore_tags_trash.json'))
     with open(os.path.join(os.path.dirname(__file__),'/static','ignore_tags_trash.json')) as f_ignore_tags_trash:
         data = json.load(f_ignore_tags_trash)
         ignore_tags_trash = data
