@@ -29,11 +29,11 @@ class MyComparisonInfo:
 
 class MyTagInfo:
     ignore_tags_common = ['rock', 'metal']
-    with open(os.path.join(os.path.dirname(__file__),'/static/ignore_tags_trash.json')) as f_ignore_tags_trash:
+    with open(os.path.join(os.path.dirname(__file__),'/static','ignore_tags_trash.json')) as f_ignore_tags_trash:
         data = json.load(f_ignore_tags_trash)
         ignore_tags_trash = data
 
-    with open(os.path.join(os.path.dirname(__file__),'/static/ignore_tags_countries.json')) as f_ignore_tags_countries:
+    with open(os.path.join(os.path.dirname(__file__),'/static','ignore_tags_countries.json')) as f_ignore_tags_countries:
         data = json.load(f_ignore_tags_countries)
         ignore_tags_countries = data
 
