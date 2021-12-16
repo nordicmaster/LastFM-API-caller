@@ -29,12 +29,12 @@ class MyComparisonInfo:
 
 class MyTagInfo:
     ignore_tags_common = ['rock', 'metal']
-    with open(os.path.join(os.path.dirname(__file__),'static','ignore_tags_trash.json')) as f_ignore_tags_trash:
+    with open(os.path.join(os.path.dirname(__file__), 'static', 'ignore_tags_trash.json')) as f_ignore_tags_trash:
         data = json.load(f_ignore_tags_trash)
         ignore_tags_trash = data
 
-    with open(os.path.join(os.path.dirname(__file__),'static','ignore_tags_countries.json')) as f_ignore_tags_countries:
-        data = json.load(f_ignore_tags_countries)
+    with open(os.path.join(os.path.dirname(__file__), 'static', 'ignore_tags_countries.json')) as f_ign_tags_countries:
+        data = json.load(f_ign_tags_countries)
         ignore_tags_countries = data
 
     def __init__(self, name: str, count: int):
@@ -53,11 +53,11 @@ def getLastFmInfo(name):
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
-    if 'error' in xInfo:
-        return xInfo["message"] + "<br>"
-    listeners = xInfo["artist"]["stats"]["listeners"]
-    totalscrobbles = xInfo["artist"]["stats"]["playcount"]
+    x_info = x.json()
+    if 'error' in x_info:
+        return x_info["message"] + "<br>"
+    listeners = x_info["artist"]["stats"]["listeners"]
+    totalscrobbles = x_info["artist"]["stats"]["playcount"]
     new_artist = StatsArtist(last_seen=date.today(),
                              ratio=float(totalscrobbles) / float(listeners),
                              scrobbles=totalscrobbles,
@@ -74,10 +74,10 @@ def getLastWeekList(myname):
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
-    if 'error' in xInfo:
-        return xInfo["message"] + "<br>"
-    week_artists = xInfo["weeklyartistchart"]["artist"]
+    x_info = x.json()
+    if 'error' in x_info:
+        return x_info["message"] + "<br>"
+    week_artists = x_info["weeklyartistchart"]["artist"]
     result = []
     for art in week_artists:
         lsn = getLastFmInfo(art["name"]).listeners
@@ -95,10 +95,10 @@ def getTopTagsByUser(username, period='overall'):
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
-    if 'error' in xInfo:
-        return xInfo["message"] + "<br>"
-    top_artists = xInfo["topartists"]["artist"]
+    x_info = x.json()
+    if 'error' in x_info:
+        return x_info["message"] + "<br>"
+    top_artists = x_info["topartists"]["artist"]
     result = []
     for art in top_artists:
         tags = getTopTags(art["name"])
@@ -127,10 +127,10 @@ def getTopTags(artist):
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
-    if 'error' in xInfo:
-        return xInfo["message"] + "<br>"
-    tags = xInfo["toptags"]["tag"]
+    x_info = x.json()
+    if 'error' in x_info:
+        return x_info["message"] + "<br>"
+    tags = x_info["toptags"]["tag"]
     result = []
     for tag in tags:
         if tag["name"] in MyTagInfo.ignore_tags_trash:
@@ -150,12 +150,12 @@ def getLastFmInfo_similar(name):
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
+    x_info = x.json()
     similar_res = ''
-    if 'error' in xInfo:
-        similar_res = similar_res + xInfo["message"] + "<br>"
+    if 'error' in x_info:
+        similar_res = similar_res + x_info["message"] + "<br>"
         return similar_res
-    artists = xInfo["artist"]["similar"]["artist"]
+    artists = x_info["artist"]["similar"]["artist"]
     if bool(artists):
         similar_res = similar_res + "<span class=\"fixwidth\">" + name + "</span> is similar to "
     else:
@@ -195,10 +195,10 @@ def getScrobblesOfCertainArtist(myname, name):
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
-    if 'error' in xInfo:
+    x_info = x.json()
+    if 'error' in x_info:
         return 0
-    library = xInfo["artists"]["artist"]
+    library = x_info["artists"]["artist"]
     result = []
     for art in library:
         if art["name"] == name:
@@ -215,10 +215,10 @@ def getTopArtists(myname, period='overall'):
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
-    if 'error' in xInfo:
-        return xInfo["message"] + "<br>"
-    top_artists = xInfo["topartists"]["artist"]
+    x_info = x.json()
+    if 'error' in x_info:
+        return x_info["message"] + "<br>"
+    top_artists = x_info["topartists"]["artist"]
     result = []
     for art in top_artists:
         artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"],
@@ -236,10 +236,10 @@ def getTopSimilarArtists(other_username, myname='nordicmaster65', period='overal
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
     x = requests.get(url, myobj)
-    xInfo = x.json()
-    if 'error' in xInfo:
-        return xInfo["message"] + "<br>"
-    top_artists = xInfo["topartists"]["artist"]
+    x_info = x.json()
+    if 'error' in x_info:
+        return x_info["message"] + "<br>"
+    top_artists = x_info["topartists"]["artist"]
     result = []
     for art in top_artists:
         artist_in_week_stats = MyComparisonInfo(art["name"], art["playcount"],
