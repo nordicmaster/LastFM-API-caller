@@ -45,7 +45,7 @@ class SimilarViewTests(TestCase):
         Testing text input on Similar page
         """
         random.seed()
-        n = random.randint(3,10)
+        n = random.randint(3, 10)
         strname = ''.join(random.choices(string.ascii_letters, k=n))
         client = Client()
         response = client.post(

@@ -8,10 +8,10 @@ class IndexView():
     def index(request):
         if request.method == "POST":
             name = request.POST.get("name")
-            artist = getLastFmInfo(name)
+            artist = get_lastfm_info(name)
             if isinstance(artist, str):
                 return HttpResponse(artist)
-            pushOrUpdate(artist)
+            push_or_update(artist)
         return render(request, "index.html",
                       {"form": ArtistForm(), "artists": get_all_artists()})
 
@@ -20,16 +20,16 @@ def similar(request):
     userform = ArtistForm()
     if request.method == "POST":
         name = request.POST.get("name")
-        res = getLastFmInfo_similar(name)
-        res2 = getDBInfo_similar(name)
+        res = get_lastfm_info_similar(name)
+        res2 = get_db_info_similar(name)
         return render(request, "similar.html", {"form": userform, "message": res, "message_mydb": res2})
     else:
         return render(request, "similar.html", {"form": userform, "message": "Similarity Check By Last.fm",
-                                                                  "message_mydb": "Similarity By My Database"})
+                                                "message_mydb": "Similarity By My Database"})
 
 
 def by_user(request):
-    return render(request, "my_stats.html", {"artists": getLastWeekList("nordicmaster65")})
+    return render(request, "my_stats.html", {"artists": get_last_week_list("nordicmaster65")})
 
 
 def by_user_top(request):
@@ -40,7 +40,7 @@ def by_user_top(request):
             username = "nordicmaster65"
         return render(request, "my_top_stats.html", {"form": PeriodForm(),
                                                      "form_user": UserNameForm(),
-                                                     "artists": getTopArtists(username, period),
+                                                     "artists": get_top_artists(username, period),
                                                      "period_name": period,
                                                      "user_name": username
                                                      })
@@ -55,7 +55,7 @@ def by_user_top_tags(request):
             username = "nordicmaster65"
         return render(request, "my_top_tags.html", {"form": PeriodForm(),
                                                     "form_user": UserNameForm(),
-                                                    "tags": getTopTagsByUser(username, period),
+                                                    "tags": get_top_tags_by_user(username, period),
                                                     "period_name": period,
                                                     "user_name": username
                                                     })
@@ -70,7 +70,8 @@ def by_user_top_compare(request):
             username = "nordicmaster65"
         return render(request, "my_top_stats_compare.html", {"form": PeriodForm(),
                                                              "form_user": UserNameForm(),
-                                                             "artists": getTopSimilarArtists(username, period=period),
+                                                             "artists": get_top_similar_artists(username,
+                                                                                                period=period),
                                                              "period_name": period,
                                                              "user_name": username
                                                              })
@@ -88,6 +89,6 @@ def contact(request):
     return HttpResponse("<h2>Контакты</h2><p>" + res + "</p>")
 
 
-def deleteAll(request):
+def delete_all():
     delete_all_artists()
     return redirect(IndexView.index)

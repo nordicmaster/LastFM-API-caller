@@ -1,5 +1,4 @@
 from django import forms
-from django.template.defaulttags import register
 
 PERIOD_CHOICES = (
     ("7day", "7day"),
@@ -31,4 +30,3 @@ class PeriodForm(forms.Form):
 
 class SortSelect(forms.Form):
     the_field = forms.ChoiceField(choices=SELECT_CHOICES)
-

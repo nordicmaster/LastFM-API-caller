@@ -45,7 +45,7 @@ class MyTagInfo:
         return self.name + ": " + str(self.count) + "; "
 
 
-def getLastFmInfo(name):
+def get_lastfm_info(name):
     """ Gets Artist.GetInfo for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'artist.getinfo',
@@ -66,7 +66,7 @@ def getLastFmInfo(name):
     return new_artist
 
 
-def getLastWeekList(myname):
+def get_last_week_list(myname):
     """ Gets User.GetWeeklyArtistChart for specified user"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'user.getWeeklyArtistChart',
@@ -80,13 +80,13 @@ def getLastWeekList(myname):
     week_artists = x_info["weeklyartistchart"]["artist"]
     result = []
     for art in week_artists:
-        lsn = getLastFmInfo(art["name"]).listeners
+        lsn = get_lastfm_info(art["name"]).listeners
         artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"], lsn)
         result.append(artist_in_week_stats)
     return result
 
 
-def getTopTagsByUser(username, period='overall'):
+def get_top_tags_by_user(username, period='overall'):
     """ Gets User.GetTopArtists by period and calculates top tags"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'user.getTopArtists',
@@ -101,7 +101,7 @@ def getTopTagsByUser(username, period='overall'):
     top_artists = x_info["topartists"]["artist"]
     result = []
     for art in top_artists:
-        tags = getTopTags(art["name"])
+        tags = get_top_tags(art["name"])
         if type(tags) == str:
             continue
         for tg in tags:
@@ -119,7 +119,7 @@ def getTopTagsByUser(username, period='overall'):
     return result
 
 
-def getTopTags(artist):
+def get_top_tags(artist):
     """ Gets Artist.GetTopTags for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'artist.gettoptags',
@@ -142,7 +142,7 @@ def getTopTags(artist):
     return result
 
 
-def getLastFmInfo_similar(name):
+def get_lastfm_info_similar(name):
     """ Gets Artist.GetInfo - similar artists for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'artist.getinfo',
@@ -166,7 +166,7 @@ def getLastFmInfo_similar(name):
     return similar_res
 
 
-def pushOrUpdate(myartist: StatsArtist):
+def push_or_update(myartist: StatsArtist):
     # print(StatsArtist.objects.filter(artist=myartist.artist))
     if StatsArtist.objects.filter(artist=myartist.artist):
         StatsArtist.objects.filter(artist=myartist.artist).update(listeners=myartist.listeners,
@@ -186,7 +186,7 @@ def delete_all_artists():
     return
 
 
-def getScrobblesOfCertainArtist(myname, name):
+def get_scrobbles_of_certain_artist(myname, name):
     """ Gets scrobbles for specified user for specified artist"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'library.getArtists',
@@ -199,14 +199,13 @@ def getScrobblesOfCertainArtist(myname, name):
     if 'error' in x_info:
         return 0
     library = x_info["artists"]["artist"]
-    result = []
     for art in library:
         if art["name"] == name:
             return art["playcount"]
     return 0
 
 
-def getTopArtists(myname, period='overall'):
+def get_top_artists(myname, period='overall'):
     """ Gets User.GetTopArtists for specified user by period"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'user.getTopArtists',
@@ -222,12 +221,12 @@ def getTopArtists(myname, period='overall'):
     result = []
     for art in top_artists:
         artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"],
-                                                getScrobblesOfCertainArtist(myname, art["name"]))
+                                                get_scrobbles_of_certain_artist(myname, art["name"]))
         result.append(artist_in_week_stats)
     return result
 
 
-def getTopSimilarArtists(other_username, myname='nordicmaster65', period='overall'):
+def get_top_similar_artists(other_username, myname='nordicmaster65', period='overall'):
     """ Gets my User.GetTopArtists and other user by period"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'user.getTopArtists',
@@ -243,13 +242,13 @@ def getTopSimilarArtists(other_username, myname='nordicmaster65', period='overal
     result = []
     for art in top_artists:
         artist_in_week_stats = MyComparisonInfo(art["name"], art["playcount"],
-                                                getScrobblesOfCertainArtist(myname, art["name"]),
-                                                getScrobblesOfCertainArtist(other_username, art["name"]))
+                                                get_scrobbles_of_certain_artist(myname, art["name"]),
+                                                get_scrobbles_of_certain_artist(other_username, art["name"]))
         result.append(artist_in_week_stats)
     return result
 
 
-def getDBInfo_similar(name):
+def get_db_info_similar(name):
     similar_db_res = "<i>" + name + "</i> is popular as (in database): <br>"
     if StatsArtist.objects.filter(artist=name):
         artist_listeners = list(StatsArtist.objects.filter(artist=name))[0].listeners
@@ -284,7 +283,6 @@ def getDBInfo_similar(name):
         for p in filtered_artists:
             x_axis.append(p.listeners)
             y_axis.append(p.scrobbles)
-        sc = ax.scatter(x_axis, y_axis)
         for p in filtered_artists:
             p_ratio = float(p.scrobbles) / float(p.listeners)
             ax.annotate(p.artist + '(' + str(round(p_ratio, 2)) + ')', (p.listeners, p.scrobbles))
