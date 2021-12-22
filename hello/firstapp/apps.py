@@ -283,6 +283,7 @@ def get_db_info_similar(name):
         for p in filtered_artists:
             x_axis.append(p.listeners)
             y_axis.append(p.scrobbles)
+        sc = ax.scatter(x_axis, y_axis)
         for p in filtered_artists:
             p_ratio = float(p.scrobbles) / float(p.listeners)
             ax.annotate(p.artist + '(' + str(round(p_ratio, 2)) + ')', (p.listeners, p.scrobbles))
