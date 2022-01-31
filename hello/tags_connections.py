@@ -1,5 +1,6 @@
 import django
 import os
+import networkx as nx
 import matplotlib.pyplot as plt
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hello.settings")
@@ -22,7 +23,8 @@ all_tags = []
 tags_dict = {}
 
 for p in StatsArtist.objects.all():
-    if p.listeners > 10:
+    #if p.listeners > 10:
+    if str(p).startswith('k'):
         filtered_artists.append(p)
 art_count = len(filtered_artists)
 i = 0
@@ -41,10 +43,18 @@ for p in filtered_artists:
                     tags_dict[(t1.name, t2.name)] = tag_count_function(t1.count, t2.count)
                     tags_dict[(t2.name, t1.name)] = tag_count_function(t1.count, t2.count)
     i += 1
+j = 0
+all_tags.sort()
+G = nx.Graph()
 for tag in all_tags:
+    j += 1
     tags_related = []
     for tdict1, tdict2 in tags_dict.keys():
         if tag == tdict1:
             tags_related.append(tdict2 + "(" + str(tags_dict[tdict1, tdict2]) + ")")
-    print(f'{tag} -- is related to {", ".join(tags_related)}')
-#plt.show()
+            G.add_edge(tag, tdict2, weight=tags_dict[tdict1, tdict2])
+    print(f'{j}. {tag} -- is related to {", ".join(tags_related)}')
+edges, weights = zip(*nx.get_edge_attributes(G, 'weight').items())
+pos1 = nx.kamada_kawai_layout(G)
+nx.draw(G, pos=pos1, with_labels=True, edgelist=edges, edge_color=weights, edge_cmap=plt.cm.Blues)
+plt.show()
