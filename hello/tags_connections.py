@@ -10,8 +10,8 @@ from firstapp.models import StatsArtist
 from firstapp.apps import get_top_tags
 
 
-def tag_count_function(c1: int, c2: int) -> int:
-    return c1 + c2
+def tag_count_function(c1: int, c2: int) -> float:
+    return (c1 + c2) / c2 if c2 > 50 else 0
 
 
 fig, ax = plt.subplots()
@@ -24,7 +24,7 @@ tags_dict = {}
 
 for p in StatsArtist.objects.all():
     #if p.listeners > 10:
-    if str(p).startswith('k'):
+    if str(p).startswith('a'):
         filtered_artists.append(p)
 art_count = len(filtered_artists)
 i = 0
@@ -38,10 +38,10 @@ for p in filtered_artists:
             if t1.name != t2.name:
                 if (t1.name, t2.name) in tags_dict:
                     tags_dict[(t1.name, t2.name)] += tag_count_function(t1.count, t2.count)
-                    tags_dict[(t2.name, t1.name)] += tag_count_function(t1.count, t2.count)
+                    tags_dict[(t2.name, t1.name)] += tag_count_function(t2.count, t1.count)
                 else:
                     tags_dict[(t1.name, t2.name)] = tag_count_function(t1.count, t2.count)
-                    tags_dict[(t2.name, t1.name)] = tag_count_function(t1.count, t2.count)
+                    tags_dict[(t2.name, t1.name)] = tag_count_function(t2.count, t1.count)
     i += 1
 j = 0
 all_tags.sort()
@@ -52,9 +52,11 @@ for tag in all_tags:
     for tdict1, tdict2 in tags_dict.keys():
         if tag == tdict1:
             tags_related.append(tdict2 + "(" + str(tags_dict[tdict1, tdict2]) + ")")
-            G.add_edge(tag, tdict2, weight=tags_dict[tdict1, tdict2])
+            if tags_dict[tdict1, tdict2] > 0:
+                G.add_edge(tag, tdict2, weight=tags_dict[tdict1, tdict2])
     print(f'{j}. {tag} -- is related to {", ".join(tags_related)}')
 edges, weights = zip(*nx.get_edge_attributes(G, 'weight').items())
 pos1 = nx.kamada_kawai_layout(G)
-nx.draw(G, pos=pos1, with_labels=True, edgelist=edges, edge_color=weights, edge_cmap=plt.cm.Blues)
+#pos1 = nx.random_layout(G)
+nx.draw(G, pos=pos1, with_labels=True, edgelist=edges, arrowstyle="->", edge_color=weights, edge_cmap=plt.cm.Reds)
 plt.show()
