@@ -4,7 +4,7 @@ from .forms import *
 from .apps import *
 
 
-class IndexView():
+class IndexView:
     def index(request):
         if request.method == "POST":
             name = request.POST.get("name")
