@@ -18,14 +18,13 @@ class IndexView:
 
 def similar(request):
     userform = ArtistForm()
+    res = "Similarity Check By Last.fm"
+    res2 = "Similarity By My Database"
     if request.method == "POST":
         name = request.POST.get("name")
         res = get_lastfm_info_similar(name)
         res2 = get_db_info_similar(name)
-        return render(request, "similar.html", {"form": userform, "message": res, "message_mydb": res2})
-    else:
-        return render(request, "similar.html", {"form": userform, "message": "Similarity Check By Last.fm",
-                                                "message_mydb": "Similarity By My Database"})
+    return render(request, "similar.html", {"form": userform, "message": res, "message_mydb": res2})
 
 
 def by_user(request):
