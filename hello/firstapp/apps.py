@@ -222,6 +222,9 @@ def get_top_artists(myname, period='overall'):
     for art in top_artists:
         artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"],
                                                 get_scrobbles_of_certain_artist(myname, art["name"]))
+        upd_artist = get_lastfm_info(art["name"])
+        if not isinstance(upd_artist, str):
+            push_or_update(upd_artist)
         result.append(artist_in_week_stats)
     return result
 
