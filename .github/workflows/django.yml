@@ -28,4 +28,4 @@ jobs:
     - name: Run Tests
       run: |
         ls
-        python manage.py test
+        python hello/manage.py test
