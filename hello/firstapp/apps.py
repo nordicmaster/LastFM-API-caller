@@ -186,11 +186,11 @@ def delete_all_artists():
     return
 
 
-def get_scrobbles_of_certain_artist(myname, name):
-    """ Gets scrobbles for specified user for specified artist"""
+def get_library_of_user(username):
+    """ Gets scrobbles for specified user"""
     url = 'https://ws.audioscrobbler.com/2.0/'
     myobj = {'method': 'library.getArtists',
-             'user': myname,
+             'user': username,
              'limit': 1500,
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
@@ -198,7 +198,12 @@ def get_scrobbles_of_certain_artist(myname, name):
     x_info = x.json()
     if 'error' in x_info:
         return 0
-    library = x_info["artists"]["artist"]
+    return x_info["artists"]["artist"]
+
+
+def get_scrobbles_of_certain_artist_in_library(library, name):
+    if library == 0:
+        return 0
     for art in library:
         if art["name"] == name:
             return art["playcount"]
@@ -219,9 +224,10 @@ def get_top_artists(myname, period='overall'):
         return x_info["message"] + "<br>"
     top_artists = x_info["topartists"]["artist"]
     result = []
+    library = get_library_of_user(myname)
     for art in top_artists:
         artist_in_week_stats = MyWeekArtistInfo(art["name"], art["playcount"],
-                                                get_scrobbles_of_certain_artist(myname, art["name"]))
+                                                get_scrobbles_of_certain_artist_in_library(library, art["name"]))
         upd_artist = get_lastfm_info(art["name"])
         if not isinstance(upd_artist, str):
             push_or_update(upd_artist)
@@ -243,10 +249,12 @@ def get_top_similar_artists(other_username, myname='nordicmaster65', period='ove
         return x_info["message"] + "<br>"
     top_artists = x_info["topartists"]["artist"]
     result = []
+    my_library = get_library_of_user(myname)
+    other_library = get_library_of_user(other_username)
     for art in top_artists:
         artist_in_week_stats = MyComparisonInfo(art["name"], art["playcount"],
-                                                get_scrobbles_of_certain_artist(myname, art["name"]),
-                                                get_scrobbles_of_certain_artist(other_username, art["name"]))
+                                                get_scrobbles_of_certain_artist_in_library(my_library, art["name"]),
+                                                get_scrobbles_of_certain_artist_in_library(other_library, art["name"]))
         result.append(artist_in_week_stats)
     return result
 
