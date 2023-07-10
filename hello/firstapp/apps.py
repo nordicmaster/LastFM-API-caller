@@ -7,9 +7,9 @@ import os
 import matplotlib.pyplot as plt
 
 
-class FirstappConfig(AppConfig):
-    name = 'my_firstapp'
-    verbose_name = "First App"
+#class FirstappConfig(AppConfig):
+#    name = 'my_firstapp'
+#    verbose_name = "First App"
 
 
 class MyWeekArtistInfo:
@@ -184,6 +184,10 @@ def get_all_artists():
 def delete_all_artists():
     StatsArtist.objects.all().delete()
     return
+
+def del_certain_artist(name):
+    if StatsArtist.objects.filter(artist=name):
+        StatsArtist.objects.filter(artist=name).delete()
 
 
 def get_library_of_user(username):

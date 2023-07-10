@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}<h1>Last API Caller (Statistics)</h1>{% endblock %}
 {% block form %}
+{% load static %}
     <form method="POST">
         {% csrf_token %}
         {{ form }}
@@ -13,6 +14,7 @@
         {{ forloop.counter|stringformat:"03d"}}. <span class="fixwidth"> {{ o.artist }} </span> has <span class="fixwidth2">
         {{ o.listeners }} </span> listeners and <span class="fixwidth3">
         {{ o.scrobbles }} </span> scrobbles. Ratio= {{ o.ratio|floatformat:3|safe|rjust:15 }}
+        <span><a href="/del/{{ o.artist }}/"><img src="{%  static 'cross.png' %}" width="20px" height="20px"></a></span>
     </div>
     {% endfor %}
 {% endblock %}

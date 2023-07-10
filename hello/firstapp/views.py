@@ -88,6 +88,10 @@ def contact(request):
     return HttpResponse("<h2>Контакты</h2><p>" + res + "</p>")
 
 
+def del_artist(request, art_name):
+    del_certain_artist(art_name)
+    return redirect(IndexView.index)
+
 def delete_all():
     delete_all_artists()
     return redirect(IndexView.index)

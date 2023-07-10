@@ -27,5 +27,6 @@ urlpatterns = [
     path('by_user_top', views.by_user_top, name='by_user_top'),
     path('by_user_top_tags', views.by_user_top_tags, name='by_user_top_tags'),
     path('by_user_top_compare', views.by_user_top_compare, name='by_user_top_compare'),
+    path('del/<str:art_name>/', views.del_artist, name='del_artist'),
     path('deleteAll', views.delete_all)
 ]
