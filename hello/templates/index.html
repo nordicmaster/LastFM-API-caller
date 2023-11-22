@@ -2,6 +2,7 @@
 {% block title %}<h1>Last API Caller (Statistics)</h1>{% endblock %}
 {% block form %}
 {% load static %}
+{% load l10n %}
     <form method="POST">
         {% csrf_token %}
         {{ form }}
@@ -11,10 +12,17 @@
 {% block content %}
     {% for o in artists|dictsortreversed:"ratio" %}
     <div class="compare_row">
-        {{ forloop.counter|stringformat:"03d"}}. <span class="fixwidth"> {{ o.artist }} </span> has <span class="fixwidth2">
-        {{ o.listeners }} </span> listeners and <span class="fixwidth3">
-        {{ o.scrobbles }} </span> scrobbles. Ratio= {{ o.ratio|floatformat:3|safe|rjust:15 }}
-        <span><a href="/del/{{ o.artist }}/"><img src="{%  static 'cross.png' %}" width="20px" height="20px"></a></span>
+        {{ forloop.counter|stringformat:"03d"}}.
+        <span class="fixwidth"> {{ o.artist }} </span>
+        has
+        <span class="fixwidth2"> {{ o.listeners|localize }} </span>
+        listeners and
+        <span class="fixwidth3"> {{ o.scrobbles }} </span>
+        scrobbles. Ratio =
+        <span class="fixwidth2">{{ o.ratio|floatformat:3|safe|rjust:15 }}</span>
+        <span class="hidden_cross"><a href="/del/{{ o.artist }}/">
+            <img src="{%  static 'cross.png' %}" width="20px" height="20px"></a>
+        </span>
     </div>
     {% endfor %}
 {% endblock %}

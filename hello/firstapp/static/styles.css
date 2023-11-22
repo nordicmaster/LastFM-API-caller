@@ -56,7 +56,17 @@
   font-size: 130%;
 }
 
+.hidden_cross {
+    display: none;
+}
+
+.compare_row:hover > .hidden_cross {
+    display: inline;
+}
+
 .compare_row:hover {
     color: red;
     background-color: #ccc;
 }
+
+
