@@ -73,7 +73,10 @@ def get_last_week_list(myname):
              'user': myname,
              'api_key': '57ee3318536b23ee81d6b27e36997cde',
              'format': 'json'}
-    x = requests.get(url, myobj)
+    try:
+        x = requests.get(url, myobj, timeout=1)
+    except requests.exceptions.Timeout:
+        return "request timeout"
     x_info = x.json()
     if 'error' in x_info:
         return x_info["message"] + "<br>"

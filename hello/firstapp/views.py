@@ -28,7 +28,10 @@ def similar(request):
 
 
 def by_user(request):
-    return render(request, "my_stats.html", {"artists": get_last_week_list("nordicmaster65")})
+    artists_result = get_last_week_list("nordicmaster65")
+    if isinstance(artists_result, str):
+        return render(request, "my_stats.html", {"error_message": artists_result})
+    return render(request, "my_stats.html", {"artists": artists_result})
 
 
 def by_user_top(request):

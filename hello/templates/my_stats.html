@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %}<h1>Last API Caller (Statistics By Week)</h1>{% endblock %}
 {% block content %}
+    {{ error_message }}
     {% for o in artists %}
         {{ forloop.counter|stringformat:"02d"}}. You scrobbled <span class="fixwidth">{{ o.artist }}</span> - <span class="fixwidth2">{{ o.scrobbles }}</span>
         times. <span class="fixwidth">Listeners: {{ o.listeners }}</span>
