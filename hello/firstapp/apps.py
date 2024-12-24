@@ -181,7 +181,7 @@ def push_or_update(myartist: StatsArtist):
 
 
 def get_all_artists():
-    return StatsArtist.objects.all()
+    return StatsArtist.objects.all().order_by('-ratio')
 
 
 def delete_all_artists():

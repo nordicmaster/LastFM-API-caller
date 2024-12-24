@@ -23,8 +23,8 @@ all_tags = []
 tags_dict = {}
 
 for p in StatsArtist.objects.all():
-    #if p.listeners > 10:
-    if str(p).startswith('a'):
+    #if p.listeners > 5000000:
+    if str(p).startswith('f'):
         filtered_artists.append(p)
 art_count = len(filtered_artists)
 i = 0

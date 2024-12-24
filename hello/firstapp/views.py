@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
@@ -14,6 +15,15 @@ class IndexView:
             push_or_update(artist)
         return render(request, "index.html",
                       {"form": ArtistForm(), "artists": get_all_artists()})
+
+
+def index_pagination(request):
+    artist_list = get_all_artists()
+    paginator = Paginator(artist_list, 100)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, "index_pgn.html", {"form": ArtistForm(), "page_obj": page_obj})
 
 
 def similar(request):

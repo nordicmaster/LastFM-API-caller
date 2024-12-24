@@ -23,6 +23,7 @@ urlpatterns = [
     path('about', views.about),
     path('contact', views.contact),
     path('similar', views.similar, name='similar'),
+    path('index_pagination', views.index_pagination, name='index_pagination'),
     path('by_user', views.by_user),
     path('by_user_top', views.by_user_top, name='by_user_top'),
     path('by_user_top_tags', views.by_user_top_tags, name='by_user_top_tags'),
